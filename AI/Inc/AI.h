@@ -18,3 +18,6 @@
 #include "StateMachine.h"
 
 //Steering
+#include "SteeringBehavior.h"
+#include "SteeringModule.h"
+#include "SeekBehavior.h"
