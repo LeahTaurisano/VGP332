@@ -1,6 +1,10 @@
 #pragma once
 
 #include "Common.h"
+
+#include "AIWorld.h"
+#include "Agent.h"
+#include "Entity.h"
 #include "GridBasedGraph.h"
 
 //Pathfinding Algorithms
@@ -12,3 +16,5 @@
 //FSM
 #include "State.h"
 #include "StateMachine.h"
+
+//Steering
