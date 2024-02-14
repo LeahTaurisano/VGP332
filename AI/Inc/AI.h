@@ -21,3 +21,6 @@
 #include "SteeringBehavior.h"
 #include "SteeringModule.h"
 #include "SeekBehavior.h"
+#include "WanderBehavior.h"
+#include "PursuitBehavior.h"
+#include "GroupBehavior.h"
