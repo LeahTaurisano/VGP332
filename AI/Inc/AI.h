@@ -24,3 +24,8 @@
 #include "WanderBehavior.h"
 #include "PursuitBehavior.h"
 #include "GroupBehavior.h"
+
+//Perception
+#include "MemoryRecord.h"
+#include "Sensor.h"
+#include "PerceptionModule.h"

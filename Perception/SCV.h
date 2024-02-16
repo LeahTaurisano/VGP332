@@ -36,6 +36,8 @@ public:
 	void SetCohesionWeight(float weight);
 
 private:
+	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
+
 	std::unique_ptr<AI::SteeringModule> mSteeringModule;
 	AI::SeekBehavior* mSeekBehavior = nullptr;
 	AI::FleeBehavior* mFleeBehavior = nullptr;

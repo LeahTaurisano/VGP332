@@ -3,12 +3,14 @@
 #include <AI.h>
 
 #include "SCV.h"
+#include "Mineral.h"
 
 using namespace AI;
 
 AIWorld aiWorld;
-SCV target(aiWorld);
 std::vector<std::unique_ptr<SCV>> scvAgents;
+std::vector<std::unique_ptr<Mineral>> minerals;
+SCV target(aiWorld);
 
 X::Math::Vector2 destination = X::Math::Vector2::Zero();
 
@@ -68,7 +70,13 @@ void GameInit()
 {
 	aiWorld.Initialize();
 	target.Load();
-	target.SetWander(true);
+	//target.SetWander(true);
+
+	for (uint32_t i = 0; i < 10; ++i)
+	{
+		auto& mineral = minerals.emplace_back(std::make_unique<Mineral>(aiWorld));
+		mineral->Initialize();
+	}
 }
 
 bool GameLoop(float deltaTime)
@@ -269,6 +277,10 @@ bool GameLoop(float deltaTime)
 	for (auto& agent : scvAgents)
 	{
 		agent->Render();
+	}
+	for (auto& mineral : minerals)
+	{
+		mineral->Render();
 	}
 
 	const bool quit = X::IsKeyPressed(X::Keys::ESCAPE);

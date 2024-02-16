@@ -2,6 +2,14 @@
 
 #include "TypeIds.h"
 
+namespace
+{
+	float ComputeImportance(const AI::Agent& agent, const AI::MemoryRecord& record)
+	{
+		return 0;
+	}
+}
+
 extern float wanderJitter;
 extern float wanderRadius;
 extern float wanderDistance;
@@ -13,6 +21,8 @@ SCV::SCV(AI::AIWorld& world)
 
 void SCV::Load()
 {
+	mPerceptionModule = std::make_unique<AI::PerceptionModule>(*this, ComputeImportance);
+	mPerceptionModule->SetMemorySpan(2.0f);
 	mSteeringModule = std::make_unique<AI::SteeringModule>(*this);
 	mSeekBehavior = mSteeringModule->AddBehavior<AI::SeekBehavior>();
 	mFleeBehavior = mSteeringModule->AddBehavior<AI::FleeBehavior>();
@@ -41,6 +51,8 @@ void SCV::Unload()
 
 void SCV::Update(float deltaTime)
 {
+	mPerceptionModule->Update(deltaTime);
+
 	if (mWanderBehavior != nullptr)
 	{
 		mWanderBehavior->Setup(wanderRadius, wanderDistance, wanderJitter);
