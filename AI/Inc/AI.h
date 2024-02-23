@@ -23,9 +23,16 @@
 #include "SeekBehavior.h"
 #include "WanderBehavior.h"
 #include "PursuitBehavior.h"
+#include "EvadeBehavior.h"
 #include "GroupBehavior.h"
 
 //Perception
 #include "MemoryRecord.h"
 #include "Sensor.h"
 #include "PerceptionModule.h"
+
+//Goal Based Decision
+#include "Goal.h"
+#include "GoalComposite.h"
+#include "Strategy.h"
+#include "DecisionModule.h"

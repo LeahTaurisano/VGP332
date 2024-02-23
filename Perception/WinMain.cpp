@@ -10,7 +10,6 @@ using namespace AI;
 AIWorld aiWorld;
 std::vector<std::unique_ptr<SCV>> scvAgents;
 std::vector<std::unique_ptr<Mineral>> minerals;
-SCV target(aiWorld);
 
 X::Math::Vector2 destination = X::Math::Vector2::Zero();
 
@@ -27,6 +26,9 @@ float wanderJitter = 5.0f;
 float wanderRadius = 20.0f;
 float wanderDistance = 50.0f;
 float radius = 50.0f;
+
+float viewRange = 300.0f;
+float viewAngle = 45.0f;
 
 float weightSeek = 0.1f;
 float weightFlee = 0.1f;
@@ -47,7 +49,6 @@ void SpawnAgent()
 	agent->position = X::RandomVector2({ 100.0f, 100.0f },
 		{ screenWidth - 100.0f, screenHeight - 100.0f });
 	agent->destination = destination;
-	agent->target = &target;
 	agent->radius = radius;
 	agent->ShowDebug(showDebug);
 	agent->SetSeek(useSeek);
@@ -69,14 +70,22 @@ void KillAgent()
 void GameInit()
 {
 	aiWorld.Initialize();
-	target.Load();
-	//target.SetWander(true);
 
 	for (uint32_t i = 0; i < 10; ++i)
 	{
 		auto& mineral = minerals.emplace_back(std::make_unique<Mineral>(aiWorld));
 		mineral->Initialize();
 	}
+
+	aiWorld.AddObstacle({ 230.0f, 300.0f, 50.0f });
+	X::Math::Vector2 topLeft(500.0f, 100.0f);
+	X::Math::Vector2 topRight(600.0f, 100.0f);
+	X::Math::Vector2 bottomLeft(500.0f, 600.0f);
+	X::Math::Vector2 bottomRight(600.0f, 600.0f);
+	aiWorld.AddWall({ topLeft, topRight });
+	aiWorld.AddWall({ topRight, bottomRight });
+	aiWorld.AddWall({ bottomLeft, bottomRight });
+	aiWorld.AddWall({ bottomLeft, topLeft });
 }
 
 bool GameLoop(float deltaTime)
@@ -237,6 +246,11 @@ bool GameLoop(float deltaTime)
 				agent->SetCohesionWeight(weightCohesion);
 			}
 		}
+		if (ImGui::CollapsingHeader("VisualSensor", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::DragFloat("ViewRange", &viewRange, 1.0f, 100.0f, 1000.0f);
+			ImGui::DragFloat("ViewAngle", &viewAngle, 1.0f, 1.0f, 180.0f);
+		}
 	}
 	ImGui::End();
 
@@ -267,13 +281,11 @@ bool GameLoop(float deltaTime)
 		}
 	}
 
-	target.Update(deltaTime);
 	for (auto& agent : scvAgents)
 	{
 		agent->Update(deltaTime);
 	}
 
-	target.Render();
 	for (auto& agent : scvAgents)
 	{
 		agent->Render();
@@ -283,26 +295,42 @@ bool GameLoop(float deltaTime)
 		mineral->Render();
 	}
 
+	const AIWorld::Obstacles& obstacles = aiWorld.GetObstacles();
+	for (const X::Math::Circle& obstacle : obstacles)
+	{
+
+		X::DrawScreenCircle(obstacle.center, obstacle.radius, X::Colors::Gray);
+	}
+	const AIWorld::Walls& walls = aiWorld.GetWalls();
+	for (const X::Math::LineSegment& wall : walls)
+	{
+		X::DrawScreenLine(wall.from, wall.to, X::Colors::Gray);
+	}
+
 	const bool quit = X::IsKeyPressed(X::Keys::ESCAPE);
 	return quit;
 }
 
 void GameCleanup()
 {
-	target.Unload();
 	for (auto& agent : scvAgents)
 	{
 		agent->Unload();
 		agent.reset();
 	}
+	for (auto& mineral : minerals)
+	{
+		mineral.reset();
+	}
 	scvAgents.clear();
+	minerals.clear();
 }
 
 //--------------------------------------------------
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-	X::Start("Steering");
+	X::Start("Perception");
 	GameInit();
 
 	X::Run(GameLoop);

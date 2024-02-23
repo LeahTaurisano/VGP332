@@ -28,17 +28,17 @@
     <Filter Include="Src\Perception">
       <UniqueIdentifier>{32547bb6-7cb1-49d9-b703-c620fd28e88b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\General">
+      <UniqueIdentifier>{4e9d2d00-61eb-4264-8d81-6fcf3c7c180c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\General">
+      <UniqueIdentifier>{9f8eabb2-cc06-4c66-87e0-b5af331fb427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\GoalBasedDecision">
+      <UniqueIdentifier>{b7d27769-5f37-4bd3-901f-d94cd390fa10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\AI.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Common.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Precompiled.h">
-      <Filter>Src</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\GridBasedGraph.h">
       <Filter>Inc\Pathing</Filter>
     </ClInclude>
@@ -59,15 +59,6 @@
     </ClInclude>
     <ClInclude Include="Inc\StateMachine.h">
       <Filter>Inc\FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Entity.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\AIWorld.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Agent.h">
-      <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\SteeringModule.h">
       <Filter>Inc\Steering</Filter>
@@ -96,11 +87,41 @@
     <ClInclude Include="Inc\PerceptionModule.h">
       <Filter>Inc\Perception</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\EvadeBehavior.h">
+      <Filter>Inc\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Agent.h">
+      <Filter>Inc\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AI.h">
+      <Filter>Inc\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AIWorld.h">
+      <Filter>Inc\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Common.h">
+      <Filter>Inc\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Entity.h">
+      <Filter>Inc\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Precompiled.h">
+      <Filter>Src\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Goal.h">
+      <Filter>Inc\GoalBasedDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Strategy.h">
+      <Filter>Inc\GoalBasedDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GoalComposite.h">
+      <Filter>Inc\GoalBasedDecision</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\DecisionModule.h">
+      <Filter>Inc\GoalBasedDecision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Precompiled.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\AStar.cpp">
       <Filter>Src\Pathing</Filter>
     </ClCompile>
@@ -116,12 +137,6 @@
     <ClCompile Include="Src\GridBasedGraph.cpp">
       <Filter>Src\Pathing</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Entity.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\AIWorld.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SteeringModule.cpp">
       <Filter>Src\Steering</Filter>
     </ClCompile>
@@ -131,14 +146,26 @@
     <ClCompile Include="Src\WanderBehavior.cpp">
       <Filter>Src\Steering</Filter>
     </ClCompile>
-    <ClCompile Include="Src\PursuitBehavior.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\GroupBehavior.cpp">
       <Filter>Src\Steering</Filter>
     </ClCompile>
     <ClCompile Include="Src\PerceptionModule.cpp">
       <Filter>Src\Perception</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\EvadeBehavior.cpp">
+      <Filter>Src\Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\AIWorld.cpp">
+      <Filter>Src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Entity.cpp">
+      <Filter>Src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Precompiled.cpp">
+      <Filter>Src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PursuitBehavior.cpp">
+      <Filter>Src\General</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

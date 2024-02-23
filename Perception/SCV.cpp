@@ -1,12 +1,42 @@
 #include "SCV.h"
 
 #include "TypeIds.h"
+#include "VisualSensor.h"
+
+extern float viewRange;
+extern float viewAngle;
 
 namespace
 {
 	float ComputeImportance(const AI::Agent& agent, const AI::MemoryRecord& record)
 	{
-		return 0;
+		float score = 0.0f;
+		AgentType entityType = static_cast<AgentType>(record.GetProperty<int>("type"));
+		switch (entityType)
+		{
+		case AgentType::Invalid:
+			score = 0.0f;
+			break;
+		case AgentType::SCV:
+		{
+			X::Math::Vector2 lastSeenPos = record.GetProperty<X::Math::Vector2>("lastSeenPosition");
+			float distance = X::Math::Distance(agent.position, lastSeenPos);
+			float distanceScore = std::max(500.0f - distance, 0.0f);
+			score = distanceScore;
+		}
+		break;
+		case AgentType::Mineral:
+		{
+			X::Math::Vector2 lastSeenPos = record.GetProperty<X::Math::Vector2>("lastSeenPosition");
+			float distance = X::Math::Distance(agent.position, lastSeenPos);
+			float distanceScore = std::max(1000.0f - distance, 0.0f);
+			score = distanceScore;
+		}
+		break;
+		default:
+			break;
+		}
+		return score;
 	}
 }
 
@@ -23,6 +53,11 @@ void SCV::Load()
 {
 	mPerceptionModule = std::make_unique<AI::PerceptionModule>(*this, ComputeImportance);
 	mPerceptionModule->SetMemorySpan(2.0f);
+	mVisualSensor = mPerceptionModule->AddSensor<VisualSensor>();
+	mVisualSensor->targetType = AgentType::Mineral;
+	mVisualSensor2 = mPerceptionModule->AddSensor<VisualSensor>();
+	mVisualSensor2->targetType = AgentType::SCV;
+
 	mSteeringModule = std::make_unique<AI::SteeringModule>(*this);
 	mSeekBehavior = mSteeringModule->AddBehavior<AI::SeekBehavior>();
 	mFleeBehavior = mSteeringModule->AddBehavior<AI::FleeBehavior>();
@@ -51,6 +86,10 @@ void SCV::Unload()
 
 void SCV::Update(float deltaTime)
 {
+	mVisualSensor->viewRange = viewRange;
+	mVisualSensor->viewHalfAngle = viewAngle * X::Math::kDegToRad;
+	mVisualSensor2->viewRange = viewRange * 0.5;
+	mVisualSensor2->viewHalfAngle = viewAngle * X::Math::kDegToRad;
 	mPerceptionModule->Update(deltaTime);
 
 	if (mWanderBehavior != nullptr)
@@ -85,6 +124,16 @@ void SCV::Update(float deltaTime)
 	if (position.y >= screenHeight)
 	{			 
 		position.y -= screenHeight;
+	}
+
+	const auto& memoryRecords = mPerceptionModule->GetMemoryRecords();
+	for (auto& memory : memoryRecords)
+	{
+		X::Math::Vector2 pos = memory.GetProperty<X::Math::Vector2>("lastSeenPosition");
+		X::DrawScreenLine(position, pos, X::Colors::White);
+
+		std::string score = std::to_string(memory.importance);
+		X::DrawScreenText(score.c_str(), pos.x, pos.y, 12.0f, X::Colors::White);
 	}
 }
 
