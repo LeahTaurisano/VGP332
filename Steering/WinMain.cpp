@@ -18,6 +18,7 @@ bool useFlee = false;
 bool useArrive = false;
 bool useWander = false;
 bool usePursuit = false;
+bool useEvade = false;
 bool useSeparation = false;
 bool useAlignment = false;
 bool useCohesion = false;
@@ -31,6 +32,7 @@ float weightFlee = 0.1f;
 float weightArrive = 0.1f;
 float weightWander = 0.1f;
 float weightPursuit = 0.1f;
+float weightEvade = 0.1f;
 float weightSeparation = 0.1f;
 float weightAlignment = 0.1f;
 float weightCohesion = 0.1f;
@@ -53,6 +55,7 @@ void SpawnAgent()
 	agent->SetArrive(useArrive);
 	agent->SetWander(useWander);
 	agent->SetPursuit(usePursuit);
+	agent->SetEvade(useEvade);
 	agent->SetSeparation(useSeparation);
 	agent->SetAlignment(useAlignment);
 	agent->SetCohesion(useCohesion);
@@ -172,6 +175,21 @@ bool GameLoop(float deltaTime)
 			for (auto& agent : scvAgents)
 			{
 				agent->SetPursuitWeight(weightPursuit);
+			}
+		}
+		if (ImGui::Checkbox("Evade", &useEvade))
+		{
+			for (auto& agent : scvAgents)
+			{
+				agent->SetEvade(useEvade);
+			}
+		}
+		ImGui::SameLine();
+		if (ImGui::DragFloat("EvadeWeight", &weightEvade, 0.1f, 0.1f, 5.0f))
+		{
+			for (auto& agent : scvAgents)
+			{
+				agent->SetEvadeWeight(weightEvade);
 			}
 		}
 		if (ImGui::Checkbox("Separate", &useSeparation))

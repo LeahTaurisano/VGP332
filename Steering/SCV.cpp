@@ -19,6 +19,7 @@ void SCV::Load()
 	mArriveBehavior = mSteeringModule->AddBehavior<AI::ArriveBehavior>();
 	mWanderBehavior = mSteeringModule->AddBehavior<AI::WanderBehavior>();
 	mPursuitBehavior = mSteeringModule->AddBehavior<AI::PursuitBehavior>();
+	mEvadeBehavior = mSteeringModule->AddBehavior<AI::EvadeBehavior>();
 	mSeparationBehavior = mSteeringModule->AddBehavior<AI::SeparationBehavior>();
 	mAlignmentBehavior = mSteeringModule->AddBehavior<AI::AlignmentBehavior>();
 	mCohesionBehavior = mSteeringModule->AddBehavior<AI::CohesionBehavior>();
@@ -91,6 +92,7 @@ void SCV::ShowDebug(bool debug)
 	mArriveBehavior->ShowDebug(debug);
 	mWanderBehavior->ShowDebug(debug);
 	mPursuitBehavior->ShowDebug(debug);
+	mEvadeBehavior->ShowDebug(debug);
 	mSeparationBehavior->ShowDebug(debug);
 	mAlignmentBehavior->ShowDebug(debug);
 	mCohesionBehavior->ShowDebug(debug);
@@ -115,6 +117,10 @@ void SCV::SetWander(bool active)
 void SCV::SetPursuit(bool active)
 {
 	mPursuitBehavior->SetActive(active);
+}
+void SCV::SetEvade(bool active)
+{
+	mEvadeBehavior->SetActive(active);
 }
 void SCV::SetSeparation(bool active)
 {
@@ -152,6 +158,11 @@ void SCV::SetWanderWeight(float weight)
 void SCV::SetPursuitWeight(float weight)
 {
 	mPursuitBehavior->SetWeight(weight);
+}
+
+void SCV::SetEvadeWeight(float weight)
+{
+	mEvadeBehavior->SetWeight(weight);
 }
 
 void SCV::SetSeparationWeight(float weight)
