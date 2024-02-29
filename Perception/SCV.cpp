@@ -2,6 +2,7 @@
 
 #include "TypeIds.h"
 #include "VisualSensor.h"
+#include "MovementSensor.h"
 
 extern float viewRange;
 extern float viewAngle;
@@ -57,6 +58,8 @@ void SCV::Load()
 	mVisualSensor->targetType = AgentType::Mineral;
 	mVisualSensor2 = mPerceptionModule->AddSensor<VisualSensor>();
 	mVisualSensor2->targetType = AgentType::SCV;
+	mMovementSensor = mPerceptionModule->AddSensor<MovementSensor>();
+	mMovementSensor->targetType = AgentType::Invalid;
 
 	mSteeringModule = std::make_unique<AI::SteeringModule>(*this);
 	mSeekBehavior = mSteeringModule->AddBehavior<AI::SeekBehavior>();
@@ -88,8 +91,10 @@ void SCV::Update(float deltaTime)
 {
 	mVisualSensor->viewRange = viewRange;
 	mVisualSensor->viewHalfAngle = viewAngle * X::Math::kDegToRad;
-	mVisualSensor2->viewRange = viewRange * 0.5;
+	mVisualSensor2->viewRange = viewRange * 0.5f;
 	mVisualSensor2->viewHalfAngle = viewAngle * X::Math::kDegToRad;
+	mMovementSensor->viewRange = viewRange * 1.5f;
+	mMovementSensor->viewHalfAngle = viewAngle * X::Math::kDegToRad * 1.25;
 	mPerceptionModule->Update(deltaTime);
 
 	if (mWanderBehavior != nullptr)
@@ -129,11 +134,22 @@ void SCV::Update(float deltaTime)
 	const auto& memoryRecords = mPerceptionModule->GetMemoryRecords();
 	for (auto& memory : memoryRecords)
 	{
-		X::Math::Vector2 pos = memory.GetProperty<X::Math::Vector2>("lastSeenPosition");
-		X::DrawScreenLine(position, pos, X::Colors::White);
+		if (!memory.GetProperty<bool>("moving", false))
+		{
+			X::Math::Vector2 pos = memory.GetProperty<X::Math::Vector2>("lastSeenPosition");
+			X::DrawScreenLine(position, pos, X::Colors::White);
 
-		std::string score = std::to_string(memory.importance);
-		X::DrawScreenText(score.c_str(), pos.x, pos.y, 12.0f, X::Colors::White);
+			std::string score = std::to_string(memory.importance);
+			X::DrawScreenText(score.c_str(), pos.x, pos.y, 12.0f, X::Colors::White);
+		}
+		else
+		{
+			X::Math::Vector2 pos = memory.GetProperty<X::Math::Vector2>("lastSeenPosition");
+			X::DrawScreenLine(position, pos, X::Colors::Orange);
+
+			std::string score = std::to_string(memory.importance * 2);
+			X::DrawScreenText(score.c_str(), pos.x, pos.y, 12.0f, X::Colors::Orange);
+		}
 	}
 }
 

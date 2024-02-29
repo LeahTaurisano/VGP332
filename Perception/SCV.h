@@ -4,6 +4,7 @@
 #include "AI.h"
 
 class VisualSensor;
+class MovementSensor;
 
 class SCV : public AI::Agent
 {
@@ -52,6 +53,7 @@ private:
 
 	VisualSensor* mVisualSensor = nullptr;
 	VisualSensor* mVisualSensor2 = nullptr;
+	MovementSensor* mMovementSensor = nullptr;
 
 	std::array<X::TextureId, 16> mTextureIds;
 };

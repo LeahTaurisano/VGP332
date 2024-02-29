@@ -144,12 +144,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Mineral.h" />
+    <ClInclude Include="MovementSensor.h" />
     <ClInclude Include="SCV.h" />
     <ClInclude Include="TypeIds.h" />
     <ClInclude Include="VisualSensor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mineral.cpp" />
+    <ClCompile Include="MovementSensor.cpp" />
     <ClCompile Include="SCV.cpp" />
     <ClCompile Include="VisualSensor.cpp" />
     <ClCompile Include="WinMain.cpp" />

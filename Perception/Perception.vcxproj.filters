@@ -5,11 +5,13 @@
     <ClInclude Include="TypeIds.h" />
     <ClInclude Include="Mineral.h" />
     <ClInclude Include="VisualSensor.h" />
+    <ClInclude Include="MovementSensor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="SCV.cpp" />
     <ClCompile Include="Mineral.cpp" />
     <ClCompile Include="VisualSensor.cpp" />
+    <ClCompile Include="MovementSensor.cpp" />
   </ItemGroup>
 </Project>
