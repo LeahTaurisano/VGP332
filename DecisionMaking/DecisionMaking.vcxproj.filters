@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Mineral.h" />
+    <ClInclude Include="SCV.h" />
+    <ClInclude Include="TypeIds.h" />
+    <ClInclude Include="VisualSensor.h" />
+    <ClInclude Include="Raven.h" />
+    <ClInclude Include="GoalWander.h">
+      <Filter>AtomicGoals</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalSeekToPosition.h">
+      <Filter>AtomicGoals</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalMoveToPosition.h">
+      <Filter>CompositeGoals</Filter>
+    </ClInclude>
+    <ClInclude Include="RavenStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="RavenHuntStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalArriveAtPosition.h">
+      <Filter>AtomicGoals</Filter>
+    </ClInclude>
+    <ClInclude Include="RavenGoToMineralStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalHarvestMineral.h">
+      <Filter>AtomicGoals</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SCV.cpp" />
+    <ClCompile Include="VisualSensor.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Mineral.cpp" />
+    <ClCompile Include="Raven.cpp" />
+    <ClCompile Include="GoalWander.cpp">
+      <Filter>AtomicGoals</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalSeekToPosition.cpp">
+      <Filter>AtomicGoals</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalMoveToPosition.cpp">
+      <Filter>CompositeGoals</Filter>
+    </ClCompile>
+    <ClCompile Include="RavenStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="RavenHuntStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalArriveAtPosition.cpp">
+      <Filter>AtomicGoals</Filter>
+    </ClCompile>
+    <ClCompile Include="RavenGoToMineralStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalHarvestMineral.cpp">
+      <Filter>AtomicGoals</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AtomicGoals">
+      <UniqueIdentifier>{0f7f2664-16b6-49d9-81fa-4d6652abb15f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CompositeGoals">
+      <UniqueIdentifier>{954271b9-034b-411d-b7ff-c0740b1cf105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{bd68b9f2-4725-4f35-a322-820f6098e36f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

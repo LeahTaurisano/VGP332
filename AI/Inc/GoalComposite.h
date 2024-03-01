@@ -31,7 +31,7 @@ namespace AI
 			mSubGoals.clear();
 		}
 
-		Status ProcessSubGoal(AgentType& agent)
+		Status ProcessSubGoals(AgentType& agent)
 		{
 			while (!mSubGoals.empty())
 			{
