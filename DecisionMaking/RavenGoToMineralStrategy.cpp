@@ -20,6 +20,14 @@ float RavenGoToMineralStrategy::CalculateDesirability(Raven& agent) const
 			if (record.importance > highestImportance)
 			{
 				highestImportance = record.importance;
+				const AI::EntityPtrs entities = agent.world.GetEntities();
+				for (AI::Entity* entity : entities)
+				{
+					if (entity->GetUniqueId() == record.uniqueId)
+					{
+						agent.SetTarget(entity);
+					}
+				}
 			}
 		}
 	}

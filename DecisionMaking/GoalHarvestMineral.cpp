@@ -11,9 +11,20 @@ void GoalHarvestMineral::Activate(Raven& agent)
 
 GoalHarvestMineral::Status GoalHarvestMineral::Process(Raven& agent)
 {
-	return Status();
+	ActivateIfInactive(agent);
+	float currentTime = X::GetTime();
+	float deltaTime = currentTime - mStartTime + 0.01f;
+	mStartTime = currentTime;
+	Mineral* mineral = static_cast<Mineral*>(agent.GetTarget());
+	mineral->SetHealth(mineral->GetHealth() - (20 * deltaTime));
+	if (mineral->GetHealth() < 0)
+	{
+		mStatus = GoalHarvestMineral::Status::Completed;
+	}
+	return mStatus;
 }
 
 void GoalHarvestMineral::Terminate(Raven& agent)
 {
+	
 }

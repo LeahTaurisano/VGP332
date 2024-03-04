@@ -21,6 +21,8 @@ public:
 	void SetArrive(bool active);
 	void SetWander(bool active);
 	void SetTargetDestination(const X::Math::Vector2& targetDestination);
+	void SetTarget(Entity* target);
+	Entity* GetTarget() { return mTarget; }
 
 	const AI::PerceptionModule* GetPerception() const { return mPerceptionModule.get(); }
 
@@ -35,4 +37,6 @@ private:
 	AI::WanderBehavior* mWanderBehavior = nullptr;
 
 	std::array<X::TextureId, 32> mTextureIds;
+
+	Entity* mTarget;
 };

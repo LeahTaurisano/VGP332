@@ -5,6 +5,7 @@
 #include "RavenStrategy.h"
 #include "RavenHuntStrategy.h"
 #include "RavenGoToMineralStrategy.h"
+#include "RavenHarvestMineralStrategy.h"
 
 extern float wanderJitter;
 extern float wanderRadius;
@@ -73,6 +74,7 @@ void Raven::Load()
 	mDecisionModule->AddStrategy<RavenHuntStrategy>();
 	auto strategy = mDecisionModule->AddStrategy<RavenGoToMineralStrategy>();
 	strategy->SetPerception(mPerceptionModule.get());
+	mDecisionModule->AddStrategy<RavenHarvestMineralStrategy>();
 
 	for (int i = 0; i < mTextureIds.size(); ++i)
 	{
@@ -169,4 +171,9 @@ void Raven::SetTargetDestination(const X::Math::Vector2& targetDestination)
 {
 	/*RavenStrategy* strategy = mDecisionModule->AddStrategy<RavenStrategy>();
 	strategy->SetTargetDestination(targetDestination);*/
+}
+
+void Raven::SetTarget(Entity* target)
+{
+	mTarget = target;
 }

@@ -147,6 +147,7 @@
     <ClInclude Include="Mineral.h" />
     <ClInclude Include="Raven.h" />
     <ClInclude Include="RavenGoToMineralStrategy.h" />
+    <ClInclude Include="RavenHarvestMineralStrategy.h" />
     <ClInclude Include="RavenHuntStrategy.h" />
     <ClInclude Include="RavenStrategy.h" />
     <ClInclude Include="SCV.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="Mineral.cpp" />
     <ClCompile Include="Raven.cpp" />
     <ClCompile Include="RavenGoToMineralStrategy.cpp" />
+    <ClCompile Include="RavenHarvestMineralStrategy.cpp" />
     <ClCompile Include="RavenHuntStrategy.cpp" />
     <ClCompile Include="RavenStrategy.cpp" />
     <ClCompile Include="SCV.cpp" />

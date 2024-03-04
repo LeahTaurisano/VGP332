@@ -30,6 +30,9 @@
     <ClInclude Include="GoalHarvestMineral.h">
       <Filter>AtomicGoals</Filter>
     </ClInclude>
+    <ClInclude Include="RavenHarvestMineralStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCV.cpp" />
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="GoalHarvestMineral.cpp">
       <Filter>AtomicGoals</Filter>
+    </ClCompile>
+    <ClCompile Include="RavenHarvestMineralStrategy.cpp">
+      <Filter>Strategy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -300,10 +300,6 @@ bool GameLoop(float deltaTime)
 		{
 			agent->destination = destination;
 		}
-		for (auto& agent : ravenAgents)
-		{
-			agent->SetTargetDestination(destination);
-		}
 	}
 
 	aiWorld.Update();
