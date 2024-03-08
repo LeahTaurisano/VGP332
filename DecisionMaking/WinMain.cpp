@@ -339,6 +339,20 @@ bool GameLoop(float deltaTime)
 		mineral->Render();
 	}
 
+	auto iter = minerals.begin();
+	while (iter != minerals.end())
+	{
+		if (iter->get()->GetHealth() <= 0)
+		{
+			iter->reset();
+			iter = minerals.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
 	const AIWorld::Obstacles& obstacles = aiWorld.GetObstacles();
 	for (const X::Math::Circle& obstacle : obstacles)
 	{

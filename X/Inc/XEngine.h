@@ -57,6 +57,7 @@ namespace X
 
 	// 2D Transform
 	void Zoom(float zoom);
+	void SetPanPosition(const Math::Vector3& position);
 
 	// Debug Draw Functions
 	void DrawLine(float x0, float y0, float z0, float x1, float y1, float z1, const Color& color);

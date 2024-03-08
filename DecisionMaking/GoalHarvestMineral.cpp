@@ -19,6 +19,7 @@ GoalHarvestMineral::Status GoalHarvestMineral::Process(Raven& agent)
 	mineral->SetHealth(mineral->GetHealth() - (20 * deltaTime));
 	if (mineral->GetHealth() < 0)
 	{
+		agent.SetTarget(nullptr);
 		mStatus = GoalHarvestMineral::Status::Completed;
 	}
 	return mStatus;

@@ -470,6 +470,12 @@ void X::Zoom(float zoom)
 	SimpleDraw::SetTransform(transform);
 	SpriteRenderer::Get()->SetTransform(transform);
 }
+void X::SetPanPosition(const Math::Vector3& position)
+{
+	auto transform = Math::Matrix4::Scaling(myZoom) * Math::Matrix4::Translation(position);
+	SimpleDraw::SetTransform(transform);
+	SpriteRenderer::Get()->SetTransform(transform);
+}
 
 void X::DrawLine(float x0, float y0, float z0, float x1, float y1, float z1, const Color& color)
 {

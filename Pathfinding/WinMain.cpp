@@ -12,7 +12,7 @@ int endX = 20;
 int endY = 12;
 
 //--------------------------------------------------
-
+X::Math::Vector3 cameraPos = X::Math::Vector3::Zero();
 void GameInit()
 {
 	tileMap.LoadTiles("tiles.txt");
@@ -24,15 +24,15 @@ void GameInit()
 
 bool GameLoop(float deltaTime)
 {
-	const float moveSpeed = 200.0f; // pixel per second
-	if (X::IsKeyDown(X::Keys::RIGHT))
-		position.x += moveSpeed * deltaTime;
-	else if (X::IsKeyDown(X::Keys::LEFT))
-		position.x -= moveSpeed * deltaTime;
-	if (X::IsKeyDown(X::Keys::DOWN))
-		position.y += moveSpeed * deltaTime;
-	else if (X::IsKeyDown(X::Keys::UP))
-		position.y -= moveSpeed * deltaTime;
+	//const float moveSpeed = 200.0f; // pixel per second
+	//if (X::IsKeyDown(X::Keys::RIGHT))
+	//	position.x += moveSpeed * deltaTime;
+	//else if (X::IsKeyDown(X::Keys::LEFT))
+	//	position.x -= moveSpeed * deltaTime;
+	//if (X::IsKeyDown(X::Keys::DOWN))
+	//	position.y += moveSpeed * deltaTime;
+	//else if (X::IsKeyDown(X::Keys::UP))
+	//	position.y -= moveSpeed * deltaTime;
 
 	ImGui::Begin("PahthFinding", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	{
@@ -73,6 +73,27 @@ bool GameLoop(float deltaTime)
 	}
 		X::DrawScreenCircle(tileMap.GetPixelPosition(startX, startY), 10.0f, X::Colors::Pink);
 		X::DrawScreenCircle(tileMap.GetPixelPosition(endX, endY), 10.0f, X::Colors::Yellow);
+
+		if (X::IsKeyDown(X::Keys::UP))
+		{
+			cameraPos.y += 15.0f * deltaTime;
+			X::SetPanPosition(cameraPos);
+		}
+		else if (X::IsKeyDown(X::Keys::DOWN))
+		{
+			cameraPos.y -= 15.0f * deltaTime;
+			X::SetPanPosition(cameraPos);
+		}
+		if (X::IsKeyDown(X::Keys::LEFT))
+		{
+			cameraPos.x += 15.0f * deltaTime;
+			X::SetPanPosition(cameraPos);
+		}
+		else if (X::IsKeyDown(X::Keys::RIGHT))
+		{
+			cameraPos.x -= 15.0f * deltaTime;
+			X::SetPanPosition(cameraPos);
+		}
 
 	const bool quit = X::IsKeyPressed(X::Keys::ESCAPE);
 	return quit;

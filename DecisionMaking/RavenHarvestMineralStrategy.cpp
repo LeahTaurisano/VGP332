@@ -4,11 +4,14 @@
 
 float RavenHarvestMineralStrategy::CalculateDesirability(Raven& agent) const
 {
-	float distanceSqr = X::Math::DistanceSqr(agent.position, agent.GetTarget()->position);
-	Mineral* mineral = static_cast<Mineral*>(agent.GetTarget());
-	if (distanceSqr < 10.0f && mineral->GetHealth() > 0)
+	if (agent.GetTarget() != nullptr)
 	{
-		return 1000.0f;
+		float distanceSqr = X::Math::DistanceSqr(agent.position, agent.GetTarget()->position);
+		Mineral* mineral = static_cast<Mineral*>(agent.GetTarget());
+		if (distanceSqr < 25.0f && mineral->GetHealth() > 0)
+		{
+			return 1000.0f;
+		}
 	}
 	return 0.0f;
 }

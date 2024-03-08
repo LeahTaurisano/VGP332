@@ -53,7 +53,7 @@ X::Math::Vector2 ArriveBehavior::Calculate(Agent& agent)
 	const X::Math::Vector2 agentToDest = agent.destination - agent.position;
 	const float distance = X::Math::Magnitude(agentToDest);
 
-	if (distance <= 1.0f)
+	if (distance <= 5.0f)
 	{
 		return X::Math::Vector2::Zero();
 	}
