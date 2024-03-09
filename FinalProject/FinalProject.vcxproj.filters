@@ -1,2 +1,115 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalSeekToPosition.cpp">
+      <Filter>Gatherers\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalWander.cpp">
+      <Filter>Gatherers\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalArriveAtPosition.cpp">
+      <Filter>Gatherers\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalMoveToPosition.cpp">
+      <Filter>Gatherers\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Gatherer.cpp">
+      <Filter>Gatherers</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererHarvestStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererGoToResourceStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererForageStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualSensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalHarvestResource.cpp">
+      <Filter>Gatherers\Goals</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="map.txt">
+      <Filter>Pathfinding</Filter>
+    </Text>
+    <Text Include="tiles.txt">
+      <Filter>Pathfinding</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Pathfinding">
+      <UniqueIdentifier>{05a685c9-45c0-4efa-9956-80a68c5e64ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gatherers">
+      <UniqueIdentifier>{aef90355-b8b4-48c6-a4a6-44f5b0eed192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gatherers\Goals">
+      <UniqueIdentifier>{7f7b2630-a695-4499-830b-895deb1c5657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gatherers\Strategies">
+      <UniqueIdentifier>{5577b4cf-3cf3-429f-aa03-91ab462ca179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sensors">
+      <UniqueIdentifier>{d7319102-6d2c-4960-b1d8-ea95f7fe901f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2c78f5c2-33b4-4fdf-896b-4e28a9f1782e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TileMap.h">
+      <Filter>Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalMoveToPosition.h">
+      <Filter>Gatherers\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalSeekToPosition.h">
+      <Filter>Gatherers\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalWander.h">
+      <Filter>Gatherers\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalArriveAtPosition.h">
+      <Filter>Gatherers\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="Gatherer.h">
+      <Filter>Gatherers</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererHarvestStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererGoToResourceStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererForageStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeIds.h" />
+    <ClInclude Include="VisualSensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalHarvestResource.h">
+      <Filter>Gatherers\Goals</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

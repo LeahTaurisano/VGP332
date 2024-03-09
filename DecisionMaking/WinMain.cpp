@@ -64,9 +64,9 @@ void SpawnAgent()
 }
 void KillAgent()
 {
-	auto& agent = ravenAgents.back();
+	auto& agent = scvAgents.back();
 	agent->Unload();
-	ravenAgents.pop_back();
+	scvAgents.pop_back();
 }
 
 void SpawnRaven()
