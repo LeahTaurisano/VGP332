@@ -15,7 +15,7 @@ void GoalMoveToPosition::Activate(Gatherer& agent)
 	//Fix these magic numbers
 	Path path = mTileMap.FindPathAStar(agent.position.x / 41, agent.position.y / 24, mDestination.x, mDestination.y);
 
-	float seekDistance = 50.0f;
+	float seekDistance = 25.0f;
 	for (int i = path.size() - 1; i >= 0; --i)
 	{
 		if (i != path.size() - 1)
