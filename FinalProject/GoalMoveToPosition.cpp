@@ -12,10 +12,11 @@ void GoalMoveToPosition::Activate(Gatherer& agent)
 	RemoveAllSubGoals(agent);
 
 	//Need to pass in the Node positions, not the agent position. Need to figure out how to convert one to the other
-	Path path = mTileMap.FindPathAStar(agent.position.x, agent.position.y, mDestination.x, mDestination.y);
+	//Fix these magic numbers
+	Path path = mTileMap.FindPathAStar(agent.position.x / 41, agent.position.y / 24, mDestination.x, mDestination.y);
 
-	float seekDistance = 200.0f;
-	for (int i = 0; i < path.size(); ++i)
+	float seekDistance = 50.0f;
+	for (int i = path.size() - 1; i >= 0; --i)
 	{
 		if (i != path.size() - 1)
 		{
