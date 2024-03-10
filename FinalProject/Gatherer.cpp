@@ -71,10 +71,10 @@ void Gatherer::Load()
 	mWanderBehavior = mSteeringModule->AddBehavior<AI::WanderBehavior>();
 
 	mDecisionModule = std::make_unique<AI::DecisionModule<Gatherer>>(*this);
-	mDecisionModule->AddStrategy<GathererForageStrategy>();
-	auto strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
-	strategy->SetPerception(mPerceptionModule.get());
-	mDecisionModule->AddStrategy<GathererHarvestStrategy>();
+	//mDecisionModule->AddStrategy<GathererForageStrategy>();
+	//auto strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
+	//strategy->SetPerception(mPerceptionModule.get());
+	//mDecisionModule->AddStrategy<GathererHarvestStrategy>();
 
 	for (int i = 0; i < mTextureIds.size(); ++i)
 	{
@@ -167,10 +167,11 @@ void Gatherer::SetWander(bool active)
 	mWanderBehavior->SetActive(active);
 }
 
-void Gatherer::SetTargetDestination(const X::Math::Vector2& targetDestination)
+void Gatherer::SetTargetDestination(const X::Math::Vector2& targetDestination, const TileMap& tileMap)
 {
-	/*GathererStrategy* strategy = mDecisionModule->AddStrategy<GathererStrategy>();
-	strategy->SetTargetDestination(targetDestination);*/
+	GathererGoToResourceStrategy* strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
+	strategy->SetDestination(targetDestination);
+	strategy->SetTileMap(tileMap);
 }
 
 void Gatherer::SetTarget(Entity* target)

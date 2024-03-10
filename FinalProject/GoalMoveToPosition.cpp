@@ -10,18 +10,24 @@ void GoalMoveToPosition::Activate(Gatherer& agent)
 {
 	mStatus = GoalMoveToPosition::Status::Active;
 	RemoveAllSubGoals(agent);
-	float distanceSqr = X::Math::DistanceSqr(agent.position, mDestination);
+
+	//Need to pass in the Node positions, not the agent position. Need to figure out how to convert one to the other
+	Path path = mTileMap.FindPathAStar(agent.position.x, agent.position.y, mDestination.x, mDestination.y);
+
 	float seekDistance = 200.0f;
-	if (distanceSqr > 10.0f)
+	for (int i = 0; i < path.size(); ++i)
 	{
-		GoalArriveAtPosition* arrive = AddSubGoal<GoalArriveAtPosition>();
-		arrive->SetDestination(mDestination);
-	}
-	if (distanceSqr > seekDistance * seekDistance)
-	{
-		GoalSeekToPosition* seek = AddSubGoal<GoalSeekToPosition>();
-		seek->SetDestination(mDestination);
-		seek->SetDestinationRange(seekDistance);
+		if (i != path.size() - 1)
+		{
+			GoalSeekToPosition* seek = AddSubGoal<GoalSeekToPosition>();
+			seek->SetDestination(path[i]);
+			seek->SetDestinationRange(seekDistance);
+		}
+		else
+		{
+			GoalArriveAtPosition* arrive = AddSubGoal<GoalArriveAtPosition>();
+			arrive->SetDestination(path[i]);
+		}
 	}
 }
 
@@ -41,4 +47,9 @@ void GoalMoveToPosition::Terminate(Gatherer& agent)
 void GoalMoveToPosition::SetDestination(const X::Math::Vector2& destination)
 {
 	mDestination = destination;
+}
+
+void GoalMoveToPosition::SetTilemap(const TileMap& tileMap)
+{
+	mTileMap = tileMap;
 }

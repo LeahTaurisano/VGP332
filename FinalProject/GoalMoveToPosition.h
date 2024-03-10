@@ -3,6 +3,7 @@
 #include <AI.h>
 
 #include "Gatherer.h"
+#include "TileMap.h"
 
 class GoalMoveToPosition : public AI::GoalComposite<Gatherer>
 {
@@ -16,7 +17,9 @@ public:
 	void Terminate(Gatherer& agent) override;
 
 	void SetDestination(const X::Math::Vector2& destination);
+	void SetTilemap(const TileMap& tileMap);
 
 private:
 	X::Math::Vector2 mDestination;
+	TileMap mTileMap;
 };

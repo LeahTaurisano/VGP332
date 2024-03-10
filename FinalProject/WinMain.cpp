@@ -40,6 +40,7 @@ void SpawnGatherer()
 	agent->destination = destination;
 	agent->radius = radius;
 	agent->ShowDebug(showDebug);
+	agent->SetTargetDestination({ (float)endX, (float)endY }, tileMap);
 }
 void KillGatherer()
 {

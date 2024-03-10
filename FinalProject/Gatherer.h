@@ -1,6 +1,7 @@
 #pragma once
 
 #include <AI.h>
+#include "TileMap.h"
 
 class VisualSensor;
 
@@ -20,7 +21,7 @@ public:
 	void SetSeek(bool active);
 	void SetArrive(bool active);
 	void SetWander(bool active);
-	void SetTargetDestination(const X::Math::Vector2& targetDestination);
+	void SetTargetDestination(const X::Math::Vector2& targetDestination, const TileMap& tileMap);
 	void SetTarget(Entity* target);
 	Entity* GetTarget() { return mTarget; }
 
