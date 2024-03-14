@@ -26,7 +26,7 @@ void GathererGoToResourceStrategy::SetDestination(const X::Math::Vector2& destin
 	mDestination = destination;
 }
 
-void GathererGoToResourceStrategy::SetTileMap(const TileMap& tileMap)
+void GathererGoToResourceStrategy::SetTileMap(TileMap* tileMap)
 {
 	mTileMap = tileMap;
 }

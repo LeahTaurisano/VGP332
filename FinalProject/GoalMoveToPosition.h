@@ -17,9 +17,9 @@ public:
 	void Terminate(Gatherer& agent) override;
 
 	void SetDestination(const X::Math::Vector2& destination);
-	void SetTilemap(const TileMap& tileMap);
+	void SetTilemap(TileMap* tileMap);
 
 private:
 	X::Math::Vector2 mDestination;
-	TileMap mTileMap;
+	TileMap* mTileMap = nullptr;
 };

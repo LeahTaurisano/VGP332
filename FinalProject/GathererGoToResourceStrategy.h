@@ -13,10 +13,10 @@ public:
 	std::unique_ptr<AI::Goal<Gatherer>> CreateGoal() const override;
 
 	void SetDestination(const X::Math::Vector2& destination);
-	void SetTileMap(const TileMap& tileMap);
+	void SetTileMap(TileMap* tileMap);
 
 private:
 	const AI::PerceptionModule* mPerception = nullptr;
 	X::Math::Vector2 mDestination;
-	TileMap mTileMap;
+	TileMap* mTileMap = nullptr;
 };

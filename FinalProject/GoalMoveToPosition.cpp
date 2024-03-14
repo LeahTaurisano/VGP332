@@ -13,7 +13,8 @@ void GoalMoveToPosition::Activate(Gatherer& agent)
 
 	//Need to pass in the Node positions, not the agent position. Need to figure out how to convert one to the other
 	//Fix these magic numbers
-	Path path = mTileMap.FindPathAStar(agent.position.x / 41, agent.position.y / 24, mDestination.x, mDestination.y);
+	X::Math::Vector2 startPos = mTileMap->GetTilePosition(agent.position);
+	Path path = mTileMap->FindPathAStar(startPos.x, startPos.y, mDestination.x, mDestination.y);
 
 	float seekDistance = 25.0f;
 	for (int i = path.size() - 1; i >= 0; --i)
@@ -50,7 +51,7 @@ void GoalMoveToPosition::SetDestination(const X::Math::Vector2& destination)
 	mDestination = destination;
 }
 
-void GoalMoveToPosition::SetTilemap(const TileMap& tileMap)
+void GoalMoveToPosition::SetTilemap(TileMap* tileMap)
 {
 	mTileMap = tileMap;
 }

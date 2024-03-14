@@ -167,7 +167,7 @@ void Gatherer::SetWander(bool active)
 	mWanderBehavior->SetActive(active);
 }
 
-void Gatherer::SetTargetDestination(const X::Math::Vector2& targetDestination, const TileMap& tileMap)
+void Gatherer::SetTargetDestination(const X::Math::Vector2& targetDestination, TileMap* tileMap)
 {
 	GathererGoToResourceStrategy* strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
 	strategy->SetDestination(targetDestination);

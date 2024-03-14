@@ -23,6 +23,7 @@ public:
 	int GetColumns() const { return mColumns; }
 	int GetRows() const { return mRows; }
 
+	X::Math::Vector2 GetTilePosition(const X::Math::Vector2& pos) const;
 	X::Math::Vector2 GetPixelPosition(int x, int y) const;
 
 	Path FindPathBFS(int startX, int startY, int endX, int endY);

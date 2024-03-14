@@ -35,12 +35,12 @@ void SpawnGatherer()
 
 	const float screenWidth = X::GetScreenWidth();
 	const float screenHeight = X::GetScreenHeight();
-	agent->position = X::RandomVector2({ 10.0f, 10.0f },
-		{ 20.0f, 20.0f });
+	agent->position = X::RandomVector2({ 500.0f, 500.0f },
+		{ 500.0f, 500.0f });
 	agent->destination = destination;
 	agent->radius = radius;
 	agent->ShowDebug(showDebug);
-	agent->SetTargetDestination({ (float)endX, (float)endY }, tileMap);
+	agent->SetTargetDestination({ (float)endX, (float)endY }, &tileMap);
 }
 void KillGatherer()
 {
