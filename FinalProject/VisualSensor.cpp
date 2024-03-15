@@ -77,11 +77,24 @@ void VisualSensor::Update(Agent& agent, MemoryRecords& memory, float deltaTime)
 	}
 
 	// debug info
-	X::Math::Vector2 fovStart = X::Math::Rotate(agent.heading * viewRange, -viewHalfAngle);
-	X::Math::Vector2 fovEnd = X::Math::Rotate(agent.heading * viewRange, viewHalfAngle);
-	X::DrawScreenLine(agent.position, agent.position + fovStart, X::Colors::Cyan);
-	X::DrawScreenLine(agent.position, agent.position + fovEnd, X::Colors::Cyan);
+	if (drawDebug)
+	{
+		X::Math::Vector2 fovStart = X::Math::Rotate(agent.heading * viewRange, -viewHalfAngle);
+		X::Math::Vector2 fovEnd = X::Math::Rotate(agent.heading * viewRange, viewHalfAngle);
+		X::DrawScreenLine(agent.position, agent.position + fovStart, X::Colors::Cyan);
+		X::DrawScreenLine(agent.position, agent.position + fovEnd, X::Colors::Cyan);
 
-	float angle = atan2(agent.heading.y, agent.heading.x);
-	X::DrawScreenArc(agent.position, viewRange, angle - viewHalfAngle, angle + viewHalfAngle, X::Colors::Cyan);
+		float angle = atan2(agent.heading.y, agent.heading.x);
+		X::DrawScreenArc(agent.position, viewRange, angle - viewHalfAngle, angle + viewHalfAngle, X::Colors::Cyan);
+	}
+}
+
+void VisualSensor::SetDrawDebug(bool state)
+{
+	drawDebug = state;
+}
+
+bool VisualSensor::GetDrawDebug()
+{
+	return drawDebug;
 }

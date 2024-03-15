@@ -124,37 +124,40 @@ void TileMap::Render() const
 		position.y += mTileHeight;
 	}
 
-	//draw the graph node connections
-	for (int y = 0; y < mRows; ++y)
+	if (showDebug)
 	{
-		for (int x = 0; x < mColumns; ++x)
+		//draw the graph node connections
+		for (int y = 0; y < mRows; ++y)
 		{
-			const GridBasedGraph::Node* node = mGraph.GetNode(x, y);
-			for (const GridBasedGraph::Node* neighbor : node->neighbors)
+			for (int x = 0; x < mColumns; ++x)
 			{
-				if (neighbor != nullptr)
+				const GridBasedGraph::Node* node = mGraph.GetNode(x, y);
+				for (const GridBasedGraph::Node* neighbor : node->neighbors)
 				{
-					const X::Math::Vector2 a = GetPixelPosition(node->column, node->row);
-					const X::Math::Vector2 b = GetPixelPosition(neighbor->column, neighbor->row);
-					X::DrawScreenLine(a, b, X::Colors::DarkGray);
+					if (neighbor != nullptr)
+					{
+						const X::Math::Vector2 a = GetPixelPosition(node->column, node->row);
+						const X::Math::Vector2 b = GetPixelPosition(neighbor->column, neighbor->row);
+						X::DrawScreenLine(a, b, X::Colors::DarkGray);
+					}
 				}
 			}
 		}
-	}
 
-	//draw the search branches
-	for (int y = 0; y < mRows; ++y)
-	{
-		for (int x = 0; x < mColumns; ++x)
+		//draw the search branches
+		for (int y = 0; y < mRows; ++y)
 		{
-			const GridBasedGraph::Node* node = mGraph.GetNode(x, y);
-			for (const GridBasedGraph::Node* neighbor : node->neighbors)
+			for (int x = 0; x < mColumns; ++x)
 			{
-				if (node->parent != nullptr)
+				const GridBasedGraph::Node* node = mGraph.GetNode(x, y);
+				for (const GridBasedGraph::Node* neighbor : node->neighbors)
 				{
-					const X::Math::Vector2 a = GetPixelPosition(node->column, node->row);
-					const X::Math::Vector2 b = GetPixelPosition(node->parent->column, node->parent->row);
-					X::DrawScreenLine(a, b, X::Colors::White);
+					if (node->parent != nullptr)
+					{
+						const X::Math::Vector2 a = GetPixelPosition(node->column, node->row);
+						const X::Math::Vector2 b = GetPixelPosition(node->parent->column, node->parent->row);
+						X::DrawScreenLine(a, b, X::Colors::White);
+					}
 				}
 			}
 		}
@@ -260,7 +263,7 @@ Path TileMap::FindPathAStar(int startX, int startY, int endX, int endY)
 		{
 			if (node->column != neighbor->column && node->row != neighbor->row)
 			{
-				return 1.0f;
+				return 2.0f;
 			}
 			return 1.0f;
 		};

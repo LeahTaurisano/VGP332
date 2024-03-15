@@ -41,6 +41,9 @@
     <ClCompile Include="GoalWander.cpp">
       <Filter>Gatherers\Goals\Atomic</Filter>
     </ClCompile>
+    <ClCompile Include="GathererStates.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.txt">
@@ -74,6 +77,9 @@
     </Filter>
     <Filter Include="Gatherers\Goals\Atomic">
       <UniqueIdentifier>{4ced00c4-f810-47e8-a163-38d552157297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{20b1fbb4-4190-46ca-b78c-99150a606ed3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="GoalWander.h">
       <Filter>Gatherers\Goals\Atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererStates.h">
+      <Filter>FSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

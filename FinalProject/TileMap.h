@@ -22,6 +22,7 @@ public:
 	bool IsBlocked(int x, int y) const;
 	int GetColumns() const { return mColumns; }
 	int GetRows() const { return mRows; }
+	void SetShowDebug(bool state) { showDebug = state; }
 
 	X::Math::Vector2 GetTilePosition(const X::Math::Vector2& pos) const;
 	X::Math::Vector2 GetPixelPosition(int x, int y) const;
@@ -40,4 +41,6 @@ private:
 	int mRows = 0;
 	int mTileWidth = 0;
 	int mTileHeight = 0;
+
+	bool showDebug;
 };

@@ -4,25 +4,24 @@
 
 #include <AI.h>
 #include "Gatherer.h"
+#include "Resource.h"
 
 using namespace AI;
 
 TileMap tileMap;
-X::Math::Vector2 destination = X::Math::Vector2::Zero();
 X::Math::Vector3 cameraPos = X::Math::Vector3::Zero();
-Path path;
-int startX = 5;
-int startY = 9;
-int endX = 20;
-int endY = 12;
+std::vector<std::unique_ptr<Resource>> resources;
+
+float camSpeed = 90.0f;
 
 bool showDebug = false;
 float wanderJitter = 5.0f;
 float wanderRadius = 20.0f;
 float wanderDistance = 50.0f;
 float radius = 50.0f;
-float viewRange = 300.0f;
-float viewAngle = 45.0f;
+
+uint32_t gathererFood;
+uint32_t hunterFood;
 
 AIWorld aiWorld;
 std::vector<std::unique_ptr<Gatherer>> gathererAgents;
@@ -32,21 +31,20 @@ void SpawnGatherer()
 {
 	auto& agent = gathererAgents.emplace_back(std::make_unique<Gatherer>(aiWorld));
 	agent->Load();
-
+	agent->SetTileMap(&tileMap);
 	const float screenWidth = X::GetScreenWidth();
 	const float screenHeight = X::GetScreenHeight();
-	agent->position = X::RandomVector2({ 500.0f, 500.0f },
-		{ 500.0f, 500.0f });
-	agent->destination = destination;
+	agent->position = agent->GetGathererHome();
 	agent->radius = radius;
 	agent->ShowDebug(showDebug);
-	agent->SetTargetDestination({ (float)endX, (float)endY }, &tileMap);
+	agent->InitializeStates();
+	agent->ChangeState(GathererState::GoToGatherSpot);
 }
 void KillGatherer()
 {
-	auto& agent = gathererAgents.back();
+	auto& agent = gathererAgents.front();
 	agent->Unload();
-	gathererAgents.pop_back();
+	gathererAgents.erase(gathererAgents.begin());
 }
 
 //--------------------------------------------------
@@ -54,11 +52,18 @@ void GameInit()
 {
 	tileMap.LoadTiles("tiles.txt");
 	tileMap.LoadMap("map.txt");
+
+	for (uint32_t i = 0; i < 10; ++i)
+	{
+		auto& mineral = resources.emplace_back(std::make_unique<Resource>(aiWorld));
+		mineral->Initialize();
+	}
 }
 
 bool GameLoop(float deltaTime)
 {
-	ImGui::Begin("PahthFinding", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	//==============ImGui================
+	ImGui::Begin("PathFinding", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	{
 		const int columns = tileMap.GetColumns();
 		const int rows = tileMap.GetRows();
@@ -72,62 +77,45 @@ bool GameLoop(float deltaTime)
 		{
 			KillGatherer();
 		}
-		ImGui::DragInt("StartX", &startX, 1, 0, columns - 1);
-		ImGui::DragInt("StartY", &startY, 1, 0, rows - 1);
-		ImGui::DragInt("EndX", &endX, 1, 0, columns - 1);
-		ImGui::DragInt("EndY", &endY, 1, 0, rows - 1);
-
-		if (ImGui::Button("RunBFS"))
+		if (ImGui::Checkbox("ShowDebug", &showDebug))
 		{
-			path = tileMap.FindPathBFS(startX, startY, endX, endY);
-		}
-		if (ImGui::Button("RunDFS"))
-		{
-			path = tileMap.FindPathDFS(startX, startY, endX, endY);
-		}
-		if (ImGui::Button("RunDijkstra"))
-		{
-			path = tileMap.FindPathDijkstra(startX, startY, endX, endY);
-		}
-		if (ImGui::Button("RunAstar"))
-		{
-			path = tileMap.FindPathAStar(startX, startY, endX, endY);
+			for (auto& agent : gathererAgents)
+			{
+				agent->ShowDebug(showDebug);
+				agent->SetShowDebug(showDebug);
+				tileMap.SetShowDebug(showDebug);
+			}
 		}
 	}
 	ImGui::End();
+	//=====================================
 
 	tileMap.Render();
 
-	for (int i = 1; i < path.size(); ++i)
-	{
-		X::DrawScreenLine(path[i - 1], path[i], X::Colors::Red);
-	}
-	X::DrawScreenCircle(tileMap.GetPixelPosition(startX, startY), 10.0f, X::Colors::Pink);
-	X::DrawScreenCircle(tileMap.GetPixelPosition(endX, endY), 10.0f, X::Colors::Yellow);
-
+	//==============Camera================
 	if (X::IsKeyDown(X::Keys::UP))
 	{
-		cameraPos.y += 15.0f * deltaTime;
+		cameraPos.y += camSpeed * deltaTime;
 		X::SetPanPosition(cameraPos);
 	}
 	else if (X::IsKeyDown(X::Keys::DOWN))
 	{
-		cameraPos.y -= 15.0f * deltaTime;
+		cameraPos.y -= camSpeed * deltaTime;
 		X::SetPanPosition(cameraPos);
 	}
 	if (X::IsKeyDown(X::Keys::LEFT))
 	{
-		cameraPos.x += 15.0f * deltaTime;
+		cameraPos.x += camSpeed * deltaTime;
 		X::SetPanPosition(cameraPos);
 	}
 	else if (X::IsKeyDown(X::Keys::RIGHT))
 	{
-		cameraPos.x -= 15.0f * deltaTime;
+		cameraPos.x -= camSpeed * deltaTime;
 		X::SetPanPosition(cameraPos);
 	}
+	//=====================================
 
-	aiWorld.Update();
-
+	//============Gatherers================
 	for (auto& agent : gathererAgents)
 	{
 		agent->Update(deltaTime);
@@ -136,6 +124,27 @@ bool GameLoop(float deltaTime)
 	{
 		agent->Render();
 	}
+	//=====================================
+
+	//============Minerals=================
+	auto iter = resources.begin();
+	while (iter != resources.end())
+	{
+		if (iter->get()->GetHealth() <= 0)
+		{
+			iter->reset();
+			iter = resources.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+	for (auto& resource : resources)
+	{
+		resource->Render();
+	}
+	//=====================================
 
 	const bool quit = X::IsKeyPressed(X::Keys::ESCAPE);
 	return quit;
@@ -148,7 +157,12 @@ void GameCleanup()
 		agent->Unload();
 		agent.reset();
 	}
+	for (auto& resource : resources)
+	{
+		resource.reset();
+	}
 	gathererAgents.clear();
+	resources.clear();
 }
 
 //--------------------------------------------------

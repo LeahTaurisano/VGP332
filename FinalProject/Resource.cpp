@@ -9,8 +9,7 @@ Resource::Resource(AI::AIWorld& world)
 void Resource::Initialize()
 {
 	mTextureId = X::LoadTexture("mushroom.png");
-	position = X::RandomVector2({ 500.0f, 100.0f }, { 780.0f, 710.0f });
-	position.x += X::Random(0, 1) == 0 ? -300.0f : 300.0f;
+	position = X::RandomVector2({ 700.0f, 500.0f }, { 1000.0f, 650.0f });
 }
 
 void Resource::Render()

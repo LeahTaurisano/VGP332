@@ -6,12 +6,11 @@
 #include "GathererForageStrategy.h"
 #include "GathererGoToResourceStrategy.h"
 #include "GathererHarvestStrategy.h"
+#include "GathererStates.h"
 
 extern float wanderJitter;
 extern float wanderRadius;
 extern float wanderDistance;
-extern float viewRange;
-extern float viewAngle;
 
 namespace
 {
@@ -63,6 +62,8 @@ void Gatherer::Load()
 	mPerceptionModule->SetMemorySpan(3.0f);
 	mVisualSensor = mPerceptionModule->AddSensor<VisualSensor>();
 	mVisualSensor->targetType = AgentType::Resource;
+	mHunterSensor = mPerceptionModule->AddSensor<VisualSensor>();
+	mHunterSensor->targetType = AgentType::Hunter;
 	
 
 	mSteeringModule = std::make_unique<AI::SteeringModule>(*this);
@@ -90,8 +91,11 @@ void Gatherer::Unload()
 
 void Gatherer::Update(float deltaTime)
 {
-	mVisualSensor->viewRange = viewRange;
-	mVisualSensor->viewHalfAngle = viewAngle * X::Math::kDegToRad;
+	mVisualSensor->viewRange = gatherViewRange;
+	mVisualSensor->viewHalfAngle = gatherViewAngle * X::Math::kDegToRad;
+
+	mHunterSensor->viewRange = hunterViewRange;
+	mHunterSensor->viewHalfAngle = hunterViewAngle * X::Math::kDegToRad;
 
 	mPerceptionModule->Update(deltaTime);
 	mDecisionModule->Update();
@@ -108,33 +112,17 @@ void Gatherer::Update(float deltaTime)
 
 	position += velocity * deltaTime;
 
-	const float screenWidth = X::GetScreenWidth();
-	const float screenHeight = X::GetScreenHeight();
-	if (position.x < 0.0f)
+	if (showDebug)
 	{
-		position.x += screenWidth;
-	}
-	if (position.x >= screenWidth)
-	{
-		position.x -= screenWidth;
-	}
-	if (position.y < 0.0f)
-	{
-		position.y += screenHeight;
-	}
-	if (position.y >= screenHeight)
-	{
-		position.y -= screenHeight;
-	}
+		const auto& memoryRecords = mPerceptionModule->GetMemoryRecords();
+		for (auto& memory : memoryRecords)
+		{
+			X::Math::Vector2 pos = memory.GetProperty<X::Math::Vector2>("lastSeenPosition");
+			X::DrawScreenLine(position, pos, X::Colors::White);
 
-	const auto& memoryRecords = mPerceptionModule->GetMemoryRecords();
-	for (auto& memory : memoryRecords)
-	{
-		X::Math::Vector2 pos = memory.GetProperty<X::Math::Vector2>("lastSeenPosition");
-		X::DrawScreenLine(position, pos, X::Colors::White);
-
-		std::string score = std::to_string(memory.importance);
-		X::DrawScreenText(score.c_str(), pos.x, pos.y, 12.0f, X::Colors::White);
+			std::string score = std::to_string(memory.importance);
+			X::DrawScreenText(score.c_str(), pos.x, pos.y, 12.0f, X::Colors::White);
+		}
 	}
 }
 
@@ -150,6 +138,8 @@ void Gatherer::ShowDebug(bool debug)
 {
 	mSeekBehavior->ShowDebug(debug);
 	mWanderBehavior->ShowDebug(debug);
+	mVisualSensor->SetDrawDebug(debug);
+	mHunterSensor->SetDrawDebug(debug);
 }
 
 void Gatherer::SetSeek(bool active)
@@ -167,14 +157,35 @@ void Gatherer::SetWander(bool active)
 	mWanderBehavior->SetActive(active);
 }
 
-void Gatherer::SetTargetDestination(const X::Math::Vector2& targetDestination, TileMap* tileMap)
+void Gatherer::Gather()
 {
 	GathererGoToResourceStrategy* strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
-	strategy->SetDestination(targetDestination);
-	strategy->SetTileMap(tileMap);
+	strategy->SetDestination(gatherSpot);
+	strategy->SetTileMap(mTileMap);
 }
 
 void Gatherer::SetTarget(Entity* target)
 {
 	mTarget = target;
+}
+
+void Gatherer::InitializeStates()
+{
+	mLocation = Location::Home;
+
+	mStateMachine.Initialize(this);
+	mStateMachine.AddState<StayHomeAndRestState>();
+	mStateMachine.AddState<GoToGatherSpotState>();
+	mStateMachine.AddState<GatherResourcesState>();
+	ChangeState(GathererState::StayHomeAndRest);
+}
+
+void Gatherer::ChangeState(GathererState state)
+{
+	mStateMachine.ChangeState((int)state);
+}
+
+void Gatherer::SetShowDebug(bool state)
+{
+	showDebug = state;
 }

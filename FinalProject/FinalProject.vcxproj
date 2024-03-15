@@ -135,6 +135,7 @@
     <ClCompile Include="GathererForageStrategy.cpp" />
     <ClCompile Include="GathererGoToResourceStrategy.cpp" />
     <ClCompile Include="GathererHarvestStrategy.cpp" />
+    <ClCompile Include="GathererStates.cpp" />
     <ClCompile Include="GathererStrategy.cpp" />
     <ClCompile Include="GoalArriveAtPosition.cpp" />
     <ClCompile Include="GoalHarvestResource.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="GathererForageStrategy.h" />
     <ClInclude Include="GathererGoToResourceStrategy.h" />
     <ClInclude Include="GathererHarvestStrategy.h" />
+    <ClInclude Include="GathererStates.h" />
     <ClInclude Include="GathererStrategy.h" />
     <ClInclude Include="GoalArriveAtPosition.h" />
     <ClInclude Include="GoalHarvestResource.h" />
