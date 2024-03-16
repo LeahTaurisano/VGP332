@@ -30,15 +30,15 @@ std::vector<std::unique_ptr<Gatherer>> gathererAgents;
 void SpawnGatherer()
 {
 	auto& agent = gathererAgents.emplace_back(std::make_unique<Gatherer>(aiWorld));
-	agent->Load();
 	agent->SetTileMap(&tileMap);
+	agent->Load();
 	const float screenWidth = X::GetScreenWidth();
 	const float screenHeight = X::GetScreenHeight();
 	agent->position = agent->GetGathererHome();
 	agent->radius = radius;
 	agent->ShowDebug(showDebug);
 	agent->InitializeStates();
-	agent->ChangeState(GathererState::GoToGatherSpot);
+	agent->GoToGather();
 }
 void KillGatherer()
 {

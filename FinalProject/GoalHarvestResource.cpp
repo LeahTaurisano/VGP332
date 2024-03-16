@@ -17,9 +17,10 @@ GoalHarvestResource::Status GoalHarvestResource::Process(Gatherer& agent)
 	mStartTime = currentTime;
 	Resource* resource = static_cast<Resource*>(agent.GetTarget());
 	resource->SetHealth(resource->GetHealth() - (20 * deltaTime));
-	if (resource->GetHealth() < 0)
+	if (resource->GetHealth() <= 0)
 	{
 		agent.SetTarget(nullptr);
+		agent.HeldResource(true);
 		mStatus = GoalHarvestResource::Status::Completed;
 	}
 	return mStatus;

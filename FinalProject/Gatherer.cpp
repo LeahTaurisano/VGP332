@@ -4,7 +4,9 @@
 #include "VisualSensor.h"
 #include "GathererStrategy.h"
 #include "GathererForageStrategy.h"
+#include "GathererGoToResourceSpotStrategy.h"
 #include "GathererGoToResourceStrategy.h"
+#include "GathererGoHomeStrategy.h"
 #include "GathererHarvestStrategy.h"
 #include "GathererStates.h"
 
@@ -72,10 +74,18 @@ void Gatherer::Load()
 	mWanderBehavior = mSteeringModule->AddBehavior<AI::WanderBehavior>();
 
 	mDecisionModule = std::make_unique<AI::DecisionModule<Gatherer>>(*this);
-	//mDecisionModule->AddStrategy<GathererForageStrategy>();
-	//auto strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
-	//strategy->SetPerception(mPerceptionModule.get());
-	//mDecisionModule->AddStrategy<GathererHarvestStrategy>();
+	auto goToResourceSpotStrategy = mDecisionModule->AddStrategy<GathererGoToResourceSpotStrategy>();
+	goToResourceSpotStrategy->SetPerception(mPerceptionModule.get());
+	goToResourceSpotStrategy->SetDestination(gatherSpot);
+	goToResourceSpotStrategy->SetTileMap(mTileMap);
+	auto goHomeStrategy = mDecisionModule->AddStrategy<GathererGoHomeStrategy>();
+	goHomeStrategy->SetPerception(mPerceptionModule.get());
+	goHomeStrategy->SetDestination(mTileMap->GetTilePosition(mGathererHome));
+	goHomeStrategy->SetTileMap(mTileMap);
+	mDecisionModule->AddStrategy<GathererHarvestStrategy>();
+	auto goToResourceStrategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
+	goToResourceStrategy->SetPerception(mPerceptionModule.get());
+	goToResourceStrategy->SetTileMap(mTileMap);
 
 	for (int i = 0; i < mTextureIds.size(); ++i)
 	{
@@ -99,6 +109,7 @@ void Gatherer::Update(float deltaTime)
 
 	mPerceptionModule->Update(deltaTime);
 	mDecisionModule->Update();
+	mStateMachine.Update(deltaTime);
 
 	mWanderBehavior->Setup(wanderRadius, wanderDistance, wanderJitter);
 
@@ -157,11 +168,24 @@ void Gatherer::SetWander(bool active)
 	mWanderBehavior->SetActive(active);
 }
 
+void Gatherer::GoToGather()
+{
+	ChangeState(GathererState::GoToGatherSpot);
+}
+
 void Gatherer::Gather()
 {
-	GathererGoToResourceStrategy* strategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
-	strategy->SetDestination(gatherSpot);
-	strategy->SetTileMap(mTileMap);
+	ChangeState(GathererState::GatherResources);
+}
+
+void Gatherer::GoHome()
+{
+	ChangeState(GathererState::GoHome);
+}
+
+void Gatherer::StayHome()
+{
+	ChangeState(GathererState::StayHomeAndRest);
 }
 
 void Gatherer::SetTarget(Entity* target)
@@ -177,12 +201,14 @@ void Gatherer::InitializeStates()
 	mStateMachine.AddState<StayHomeAndRestState>();
 	mStateMachine.AddState<GoToGatherSpotState>();
 	mStateMachine.AddState<GatherResourcesState>();
+	mStateMachine.AddState<GoHomeState>();
 	ChangeState(GathererState::StayHomeAndRest);
 }
 
 void Gatherer::ChangeState(GathererState state)
 {
 	mStateMachine.ChangeState((int)state);
+	mCurrentState = state;
 }
 
 void Gatherer::SetShowDebug(bool state)

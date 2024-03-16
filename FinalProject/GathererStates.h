@@ -29,3 +29,12 @@ public:
 	void Exit(Gatherer& agent) override;
 	void DebugUI() override;
 };
+
+class GoHomeState : public AI::State<Gatherer>
+{
+public:
+	void Enter(Gatherer& agent) override;
+	void Update(Gatherer& agent, float deltaTime) override;
+	void Exit(Gatherer& agent) override;
+	void DebugUI() override;
+};

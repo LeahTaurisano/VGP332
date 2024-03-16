@@ -4,11 +4,11 @@
 
 float GathererHarvestStrategy::CalculateDesirability(Gatherer& agent) const
 {
-	if (agent.GetTarget() != nullptr)
+	if (agent.GetTarget() != nullptr && agent.GetCurrentState() == GathererState::GatherResources)
 	{
 		float distanceSqr = X::Math::DistanceSqr(agent.position, agent.GetTarget()->position);
 		Resource* resource = static_cast<Resource*>(agent.GetTarget());
-		if (distanceSqr < 25.0f && resource->GetHealth() > 0)
+		if (distanceSqr < 1000.0f && resource->GetHealth() > 0)
 		{
 			return 1000.0f;
 		}

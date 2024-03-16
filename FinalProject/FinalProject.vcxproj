@@ -133,6 +133,8 @@
   <ItemGroup>
     <ClCompile Include="Gatherer.cpp" />
     <ClCompile Include="GathererForageStrategy.cpp" />
+    <ClCompile Include="GathererGoHomeStrategy.cpp" />
+    <ClCompile Include="GathererGoToResourceSpotStrategy.cpp" />
     <ClCompile Include="GathererGoToResourceStrategy.cpp" />
     <ClCompile Include="GathererHarvestStrategy.cpp" />
     <ClCompile Include="GathererStates.cpp" />
@@ -154,6 +156,8 @@
   <ItemGroup>
     <ClInclude Include="Gatherer.h" />
     <ClInclude Include="GathererForageStrategy.h" />
+    <ClInclude Include="GathererGoHomeStrategy.h" />
+    <ClInclude Include="GathererGoToResourceSpotStrategy.h" />
     <ClInclude Include="GathererGoToResourceStrategy.h" />
     <ClInclude Include="GathererHarvestStrategy.h" />
     <ClInclude Include="GathererStates.h" />

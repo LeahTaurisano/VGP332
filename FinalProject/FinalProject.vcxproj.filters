@@ -11,9 +11,6 @@
     <ClCompile Include="GathererHarvestStrategy.cpp">
       <Filter>Gatherers\Strategies</Filter>
     </ClCompile>
-    <ClCompile Include="GathererGoToResourceStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
-    </ClCompile>
     <ClCompile Include="GathererForageStrategy.cpp">
       <Filter>Gatherers\Strategies</Filter>
     </ClCompile>
@@ -43,6 +40,15 @@
     </ClCompile>
     <ClCompile Include="GathererStates.cpp">
       <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererGoHomeStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererGoToResourceSpotStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="GathererGoToResourceStrategy.cpp">
+      <Filter>Gatherers\Strategies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +98,6 @@
     <ClInclude Include="GathererHarvestStrategy.h">
       <Filter>Gatherers\Strategies</Filter>
     </ClInclude>
-    <ClInclude Include="GathererGoToResourceStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
-    </ClInclude>
     <ClInclude Include="GathererForageStrategy.h">
       <Filter>Gatherers\Strategies</Filter>
     </ClInclude>
@@ -125,6 +128,15 @@
     </ClInclude>
     <ClInclude Include="GathererStates.h">
       <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererGoHomeStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererGoToResourceSpotStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="GathererGoToResourceStrategy.h">
+      <Filter>Gatherers\Strategies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

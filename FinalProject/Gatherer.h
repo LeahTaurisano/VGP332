@@ -15,7 +15,8 @@ enum class GathererState
 {
 	StayHomeAndRest,
 	GoToGatherSpot,
-	GatherResources
+	GatherResources,
+	GoHome
 };
 
 class Gatherer : public AI::Agent
@@ -37,7 +38,10 @@ public:
 	void SetSeek(bool active);
 	void SetArrive(bool active);
 	void SetWander(bool active);
+	void GoToGather();
 	void Gather();
+	void GoHome();
+	void StayHome();
 	void SetTarget(Entity* target);
 	Entity* GetTarget() { return mTarget; }
 
@@ -45,10 +49,16 @@ public:
 
 	void InitializeStates();
 	void ChangeState(GathererState state);
+	GathererState GetCurrentState() { return mCurrentState; }
 	void SetLocation(Location location) { mLocation = location; }
 	Location GetLocation() { return mLocation; }
 
 	void SetTileMap(TileMap* tileMap) { mTileMap = tileMap; }
+	TileMap* GetTileMap() { return mTileMap; }
+	X::Math::Vector2 GetGatherSpot(){ return gatherSpot; }
+
+	void HeldResource(bool held) { mHasResource = held; }
+	bool GetHasResource() { return mHasResource; }
 
 private:
 	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
@@ -56,6 +66,7 @@ private:
 	std::unique_ptr<AI::DecisionModule<Gatherer>> mDecisionModule;
 
 	AI::StateMachine<Gatherer> mStateMachine;
+	GathererState mCurrentState;
 	Location mLocation;
 
 	VisualSensor* mVisualSensor = nullptr;
@@ -76,6 +87,6 @@ private:
 	float hunterViewRange = 150;
 	float hunterViewAngle = 50;
 
-	bool hasResource = false;
+	bool mHasResource = false;
 	bool showDebug = false;
 };
