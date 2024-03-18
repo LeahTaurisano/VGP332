@@ -20,8 +20,14 @@ float wanderRadius = 20.0f;
 float wanderDistance = 50.0f;
 float radius = 50.0f;
 
-uint32_t gathererFood;
-uint32_t hunterFood;
+int gathererFood = 0;
+int hunterFood = 0;
+
+float eatTimerMax = 60.0f;
+float eatTimerCurrent = 0.0f;
+
+float resourceGrowTimerMax = 15.0f;
+float resourceGrowTimerCurrent = 0.0f;
 
 AIWorld aiWorld;
 std::vector<std::unique_ptr<Gatherer>> gathererAgents;
@@ -47,6 +53,12 @@ void KillGatherer()
 	gathererAgents.erase(gathererAgents.begin());
 }
 
+void SpawnResource()
+{
+	auto& resource = resources.emplace_back(std::make_unique<Resource>(aiWorld));
+	resource->Initialize();
+}
+
 //--------------------------------------------------
 void GameInit()
 {
@@ -55,9 +67,11 @@ void GameInit()
 
 	for (uint32_t i = 0; i < 10; ++i)
 	{
-		auto& mineral = resources.emplace_back(std::make_unique<Resource>(aiWorld));
-		mineral->Initialize();
+		SpawnResource();
 	}
+
+	SpawnGatherer();
+	SpawnGatherer();
 }
 
 bool GameLoop(float deltaTime)
@@ -68,15 +82,9 @@ bool GameLoop(float deltaTime)
 		const int columns = tileMap.GetColumns();
 		const int rows = tileMap.GetRows();
 
-		if (ImGui::Button("SpawnGatherer"))
-		{
-			SpawnGatherer();
-		}
-		ImGui::SameLine();
-		if (ImGui::Button("KillGatherer") && !gathererAgents.empty())
-		{
-			KillGatherer();
-		}
+		ImGui::Text("EatTimer: %.2f", eatTimerCurrent);
+		ImGui::Text("GathererFood: %i", gathererFood);
+
 		if (ImGui::Checkbox("ShowDebug", &showDebug))
 		{
 			for (auto& agent : gathererAgents)
@@ -119,14 +127,34 @@ bool GameLoop(float deltaTime)
 	for (auto& agent : gathererAgents)
 	{
 		agent->Update(deltaTime);
+		if (agent->GetDepositedResource())
+		{
+			++gathererFood;
+			agent->SetDepositedResource(false);
+		}
 	}
 	for (auto& agent : gathererAgents)
 	{
 		agent->Render();
 	}
+	if (eatTimerCurrent > eatTimerMax)
+	{
+		eatTimerCurrent = 0.0f;
+		gathererFood -= gathererAgents.size();
+		while (gathererFood < 0)
+		{
+			++gathererFood;
+			KillGatherer();
+		}
+		if (gathererFood > 0)
+		{
+			SpawnGatherer();
+		}
+	}
 	//=====================================
+	eatTimerCurrent += deltaTime;
 
-	//============Minerals=================
+	//============Resources================
 	auto iter = resources.begin();
 	while (iter != resources.end())
 	{
@@ -144,6 +172,13 @@ bool GameLoop(float deltaTime)
 	{
 		resource->Render();
 	}
+	if (resourceGrowTimerCurrent > resourceGrowTimerMax)
+	{
+		SpawnResource();
+		resourceGrowTimerCurrent = 0.0f;
+	}
+	resourceGrowTimerCurrent += deltaTime;
+	
 	//=====================================
 
 	const bool quit = X::IsKeyPressed(X::Keys::ESCAPE);

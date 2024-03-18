@@ -5,6 +5,7 @@ void StayHomeAndRestState::Enter(Gatherer& agent)
 	if (agent.GetHasResource())
 	{
 		agent.HeldResource(false);
+		agent.SetDepositedResource(true);
 	}
 }
 

@@ -59,6 +59,8 @@ public:
 
 	void HeldResource(bool held) { mHasResource = held; }
 	bool GetHasResource() { return mHasResource; }
+	void SetDepositedResource(bool deposited) { mDepositedResource = deposited; }
+	bool GetDepositedResource() { return mDepositedResource; }
 
 private:
 	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
@@ -88,5 +90,6 @@ private:
 	float hunterViewAngle = 50;
 
 	bool mHasResource = false;
+	bool mDepositedResource = false;
 	bool showDebug = false;
 };
