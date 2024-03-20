@@ -144,6 +144,8 @@
     <ClCompile Include="GoalMoveToPosition.cpp" />
     <ClCompile Include="GoalSeekToPosition.cpp" />
     <ClCompile Include="GoalWander.cpp" />
+    <ClCompile Include="Hunter.cpp" />
+    <ClCompile Include="HunterStates.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="VisualSensor.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="GoalMoveToPosition.h" />
     <ClInclude Include="GoalSeekToPosition.h" />
     <ClInclude Include="GoalWander.h" />
+    <ClInclude Include="Hunter.h" />
+    <ClInclude Include="HunterStates.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TypeIds.h" />

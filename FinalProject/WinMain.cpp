@@ -4,6 +4,7 @@
 
 #include <AI.h>
 #include "Gatherer.h"
+#include "Hunter.h"
 #include "Resource.h"
 
 using namespace AI;
@@ -24,13 +25,14 @@ int gathererFood = 0;
 int hunterFood = 0;
 
 float eatTimerMax = 60.0f;
-float eatTimerCurrent = 0.0f;
+float eatTimerCurrent = 60.0f;
 
 float resourceGrowTimerMax = 15.0f;
 float resourceGrowTimerCurrent = 0.0f;
 
 AIWorld aiWorld;
 std::vector<std::unique_ptr<Gatherer>> gathererAgents;
+std::vector<std::unique_ptr<Hunter>> hunterAgents;
 
 
 void SpawnGatherer()
@@ -51,6 +53,26 @@ void KillGatherer()
 	auto& agent = gathererAgents.front();
 	agent->Unload();
 	gathererAgents.erase(gathererAgents.begin());
+}
+
+void SpawnHunter()
+{
+	auto& agent = hunterAgents.emplace_back(std::make_unique<Hunter>(aiWorld));
+	agent->SetTileMap(&tileMap);
+	agent->Load();
+	const float screenWidth = X::GetScreenWidth();
+	const float screenHeight = X::GetScreenHeight();
+	agent->position = agent->GetHunterHome();
+	agent->radius = radius;
+	agent->ShowDebug(showDebug);
+	agent->InitializeStates();
+	agent->GoToHunt();
+}
+void KillHunter()
+{
+	auto& agent = hunterAgents.front();
+	agent->Unload();
+	hunterAgents.erase(hunterAgents.begin());
 }
 
 void SpawnResource()
@@ -81,6 +103,16 @@ bool GameLoop(float deltaTime)
 	{
 		const int columns = tileMap.GetColumns();
 		const int rows = tileMap.GetRows();
+
+		if (ImGui::Button("SpawnHunter"))
+		{
+			SpawnHunter();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("KillHunter"))
+		{
+			KillHunter();
+		}
 
 		ImGui::Text("EatTimer: %.2f", eatTimerCurrent);
 		ImGui::Text("GathererFood: %i", gathererFood);
@@ -131,15 +163,15 @@ bool GameLoop(float deltaTime)
 		{
 			++gathererFood;
 			agent->SetDepositedResource(false);
-		}
+		} 
 	}
 	for (auto& agent : gathererAgents)
 	{
 		agent->Render();
 	}
-	if (eatTimerCurrent > eatTimerMax)
+	if (eatTimerCurrent < 0)
 	{
-		eatTimerCurrent = 0.0f;
+		eatTimerCurrent = eatTimerMax;
 		gathererFood -= gathererAgents.size();
 		while (gathererFood < 0)
 		{
@@ -152,7 +184,37 @@ bool GameLoop(float deltaTime)
 		}
 	}
 	//=====================================
-	eatTimerCurrent += deltaTime;
+
+	//=============Hunters================
+	for (auto& agent : hunterAgents)
+	{
+		agent->Update(deltaTime);
+		if (agent->GetDepositedGatherer())
+		{
+			++gathererFood;
+			agent->SetDepositedGatherer(false);
+		}
+	}
+	for (auto& agent : hunterAgents)
+	{
+		agent->Render();
+	}
+	if (eatTimerCurrent < 0)
+	{
+		eatTimerCurrent = eatTimerMax;
+		hunterFood -= hunterAgents.size();
+		while (hunterFood < 0)
+		{
+			++hunterFood;
+			KillHunter();
+		}
+		if (hunterFood > 0)
+		{
+			SpawnHunter();
+		}
+	}
+	//=====================================
+	eatTimerCurrent -= deltaTime;
 
 	//============Resources================
 	auto iter = resources.begin();
@@ -192,11 +254,17 @@ void GameCleanup()
 		agent->Unload();
 		agent.reset();
 	}
+	for (auto& agent : hunterAgents)
+	{
+		agent->Unload();
+		agent.reset();
+	}
 	for (auto& resource : resources)
 	{
 		resource.reset();
 	}
 	gathererAgents.clear();
+	hunterAgents.clear();
 	resources.clear();
 }
 
