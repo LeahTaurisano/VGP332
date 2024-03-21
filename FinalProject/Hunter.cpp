@@ -71,7 +71,7 @@ void Hunter::Load()
 	mDecisionModule = std::make_unique<AI::DecisionModule<Hunter>>(*this);
 	auto goToHuntingSpotStrategy = mDecisionModule->AddStrategy<HunterGoToHuntingSpotStrategy>();
 	goToHuntingSpotStrategy->SetPerception(mPerceptionModule.get());
-	goToHuntingSpotStrategy->SetDestination(huntingSpot);
+	goToHuntingSpotStrategy->SetDestination(mTileMap->GetTilePosition(huntingSpot));
 	goToHuntingSpotStrategy->SetTileMap(mTileMap);
 	auto goHomeStrategy = mDecisionModule->AddStrategy<HunterGoHomeStrategy>();
 	goHomeStrategy->SetPerception(mPerceptionModule.get());

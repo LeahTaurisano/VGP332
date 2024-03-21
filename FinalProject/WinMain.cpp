@@ -24,10 +24,13 @@ float radius = 50.0f;
 int gathererFood = 0;
 int hunterFood = 0;
 
-float eatTimerMax = 60.0f;
-float eatTimerCurrent = 60.0f;
+float eatTimerMaxGatherer = 40.0f;
+float eatTimerCurrentGatherer = eatTimerMaxGatherer;
 
-float resourceGrowTimerMax = 15.0f;
+float eatTimerMaxHunter = 120.0f;
+float eatTimerCurrentHunter = eatTimerMaxHunter;
+
+float resourceGrowTimerMax = 8.0f;
 float resourceGrowTimerCurrent = 0.0f;
 
 AIWorld aiWorld;
@@ -94,6 +97,11 @@ void GameInit()
 
 	SpawnGatherer();
 	SpawnGatherer();
+	SpawnGatherer();
+	SpawnGatherer();
+
+	SpawnHunter();
+	SpawnHunter();
 }
 
 bool GameLoop(float deltaTime)
@@ -104,18 +112,10 @@ bool GameLoop(float deltaTime)
 		const int columns = tileMap.GetColumns();
 		const int rows = tileMap.GetRows();
 
-		if (ImGui::Button("SpawnHunter"))
-		{
-			SpawnHunter();
-		}
-		ImGui::SameLine();
-		if (ImGui::Button("KillHunter"))
-		{
-			KillHunter();
-		}
-
-		ImGui::Text("EatTimer: %.2f", eatTimerCurrent);
+		ImGui::Text("GathererEatTimer: %.2f", eatTimerCurrentGatherer);
 		ImGui::Text("GathererFood: %i", gathererFood);
+		ImGui::Text("HunterEatTimer: %.2f", eatTimerCurrentHunter);
+		ImGui::Text("HunterFood: %i", hunterFood);
 
 		if (ImGui::Checkbox("ShowDebug", &showDebug))
 		{
@@ -160,67 +160,6 @@ bool GameLoop(float deltaTime)
 	}
 	//=====================================
 
-	//============Gatherers================
-	for (auto& agent : gathererAgents)
-	{
-		agent->Update(deltaTime);
-		if (agent->GetDepositedResource())
-		{
-			++gathererFood;
-			agent->SetDepositedResource(false);
-		} 
-	}
-	for (auto& agent : gathererAgents)
-	{
-		agent->Render();
-	}
-	if (eatTimerCurrent < 0)
-	{
-		eatTimerCurrent = eatTimerMax;
-		gathererFood -= gathererAgents.size();
-		while (gathererFood < 0)
-		{
-			++gathererFood;
-			KillGatherer();
-		}
-		if (gathererFood > 0)
-		{
-			SpawnGatherer();
-		}
-	}
-	//=====================================
-
-	//=============Hunters================
-	for (auto& agent : hunterAgents)
-	{
-		agent->Update(deltaTime);
-		if (agent->GetDepositedGatherer())
-		{
-			++gathererFood;
-			agent->SetDepositedGatherer(false);
-		}
-	}
-	for (auto& agent : hunterAgents)
-	{
-		agent->Render();
-	}
-	if (eatTimerCurrent < 0)
-	{
-		eatTimerCurrent = eatTimerMax;
-		hunterFood -= hunterAgents.size();
-		while (hunterFood < 0)
-		{
-			++hunterFood;
-			KillHunter();
-		}
-		if (hunterFood > 0)
-		{
-			SpawnHunter();
-		}
-	}
-	//=====================================
-	eatTimerCurrent -= deltaTime;
-
 	//============Resources================
 	auto iter = resources.begin();
 	while (iter != resources.end())
@@ -245,7 +184,72 @@ bool GameLoop(float deltaTime)
 		resourceGrowTimerCurrent = 0.0f;
 	}
 	resourceGrowTimerCurrent += deltaTime;
-	
+
+	//=====================================
+
+	//============Gatherers================
+	for(auto iter = gathererAgents.begin(); iter != gathererAgents.end();)
+	{
+		if (iter->get()->GetHealth() <= 0)
+		{
+			iter->get()->Unload();
+			iter = gathererAgents.erase(iter);
+		}
+		else
+		{
+			iter->get()->Update(deltaTime);
+			if (iter->get()->GetDepositedResource())
+			{
+				gathererFood += 2;
+				iter->get()->SetDepositedResource(false);
+			}
+			iter->get()->Render();
+			++iter;
+		}
+	}
+	if (eatTimerCurrentGatherer < 0)
+	{
+		eatTimerCurrentGatherer = eatTimerMaxGatherer;
+		gathererFood -= gathererAgents.size();
+		while (gathererFood < 0)
+		{
+			++gathererFood;
+			KillGatherer();
+		}
+		if (gathererFood >= 0)
+		{
+			SpawnGatherer();
+		}
+	}
+	eatTimerCurrentGatherer -= deltaTime;
+	//=====================================
+
+	//=============Hunters================
+	for (auto& agent : hunterAgents)
+	{
+		agent->Update(deltaTime);
+		if (agent->GetDepositedGatherer())
+		{
+			++hunterFood;
+			agent->SetDepositedGatherer(false);
+		}
+		agent->Render();
+	}
+	if (eatTimerCurrentHunter < 0)
+	{
+		eatTimerCurrentHunter = eatTimerMaxHunter;
+		hunterFood -= hunterAgents.size();
+		while (hunterFood < 0)
+		{
+			++hunterFood;
+			KillHunter();
+		}
+		if (hunterFood >= 0)
+		{
+			SpawnHunter();
+		}
+	}
+	eatTimerCurrentHunter -= deltaTime;
 	//=====================================
 
 	const bool quit = X::IsKeyPressed(X::Keys::ESCAPE);

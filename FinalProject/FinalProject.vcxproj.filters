@@ -5,9 +5,6 @@
       <Filter>Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="Gatherer.cpp">
-      <Filter>Gatherers</Filter>
-    </ClCompile>
     <ClCompile Include="GathererHarvestStrategy.cpp">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
@@ -16,9 +13,6 @@
     </ClCompile>
     <ClCompile Include="GathererStrategy.cpp">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClCompile>
-    <ClCompile Include="VisualSensor.cpp">
-      <Filter>Sensors</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Resources</Filter>
@@ -39,7 +33,7 @@
       <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClCompile>
     <ClCompile Include="GathererStates.cpp">
-      <Filter>FSM</Filter>
+      <Filter>Gatherers\FSM</Filter>
     </ClCompile>
     <ClCompile Include="GathererGoHomeStrategy.cpp">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
@@ -49,12 +43,6 @@
     </ClCompile>
     <ClCompile Include="GathererGoToResourceStrategy.cpp">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClCompile>
-    <ClCompile Include="Hunter.cpp">
-      <Filter>Hunters</Filter>
-    </ClCompile>
-    <ClCompile Include="HunterStates.cpp">
-      <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="HunterGoToHuntingSpotStrategy.cpp">
       <Filter>Hunters\DecisionMaking\Strategies</Filter>
@@ -81,7 +69,19 @@
       <Filter>Hunters\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="VisualSensorHunter.cpp">
-      <Filter>Sensors</Filter>
+      <Filter>Hunters\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="HunterStates.cpp">
+      <Filter>Hunters\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualSensor.cpp">
+      <Filter>Gatherers\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="Gatherer.cpp">
+      <Filter>Gatherers\Agent</Filter>
+    </ClCompile>
+    <ClCompile Include="Hunter.cpp">
+      <Filter>Hunters\Agent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,14 +99,8 @@
     <Filter Include="Gatherers">
       <UniqueIdentifier>{aef90355-b8b4-48c6-a4a6-44f5b0eed192}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sensors">
-      <UniqueIdentifier>{d7319102-6d2c-4960-b1d8-ea95f7fe901f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{2c78f5c2-33b4-4fdf-896b-4e28a9f1782e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FSM">
-      <UniqueIdentifier>{20b1fbb4-4190-46ca-b78c-99150a606ed3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Hunters">
       <UniqueIdentifier>{7bb38869-7ea5-47b4-b21f-43b79172bc79}</UniqueIdentifier>
@@ -141,13 +135,28 @@
     <Filter Include="Hunters\DecisionMaking\Strategies">
       <UniqueIdentifier>{70e44c3b-1e16-47f4-9807-02a1770d757f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gatherers\FSM">
+      <UniqueIdentifier>{20b1fbb4-4190-46ca-b78c-99150a606ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\FSM">
+      <UniqueIdentifier>{c88b96fa-eb5d-4519-804c-0e7f31a5abcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gatherers\Sensors">
+      <UniqueIdentifier>{47253621-98e3-4192-97da-02aaaa317824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\Sensors">
+      <UniqueIdentifier>{d7319102-6d2c-4960-b1d8-ea95f7fe901f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gatherers\Agent">
+      <UniqueIdentifier>{dc9abed2-0d9c-4308-bbc7-0cd0a691fd91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\Agent">
+      <UniqueIdentifier>{4ae7a675-6c98-47fd-9977-d7b9122b3370}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TileMap.h">
       <Filter>Pathfinding</Filter>
-    </ClInclude>
-    <ClInclude Include="Gatherer.h">
-      <Filter>Gatherers</Filter>
     </ClInclude>
     <ClInclude Include="GathererHarvestStrategy.h">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
@@ -159,9 +168,6 @@
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="TypeIds.h" />
-    <ClInclude Include="VisualSensor.h">
-      <Filter>Sensors</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -181,7 +187,7 @@
       <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClInclude>
     <ClInclude Include="GathererStates.h">
-      <Filter>FSM</Filter>
+      <Filter>Gatherers\FSM</Filter>
     </ClInclude>
     <ClInclude Include="GathererGoHomeStrategy.h">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
@@ -191,12 +197,6 @@
     </ClInclude>
     <ClInclude Include="GathererGoToResourceStrategy.h">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClInclude>
-    <ClInclude Include="Hunter.h">
-      <Filter>Hunters</Filter>
-    </ClInclude>
-    <ClInclude Include="HunterStates.h">
-      <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="HunterGoToHuntingSpotStrategy.h">
       <Filter>Hunters\DecisionMaking\Strategies</Filter>
@@ -223,7 +223,19 @@
       <Filter>Hunters\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="VisualSensorHunter.h">
-      <Filter>Sensors</Filter>
+      <Filter>Hunters\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="HunterStates.h">
+      <Filter>Hunters\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualSensor.h">
+      <Filter>Gatherers\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="Gatherer.h">
+      <Filter>Gatherers\Agent</Filter>
+    </ClInclude>
+    <ClInclude Include="Hunter.h">
+      <Filter>Hunters\Agent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -65,6 +65,10 @@ public:
 	int GetHealth() const { return mHealth; }
 	void SetHealth(int health) { mHealth = health; }
 
+	float GetEnergyMax() const { return mGathererEnergyMax; }
+	float GetEnergy() const { return mGathererEnergy; }
+	void SetEnergy(float energy) { mGathererEnergy = energy; }
+
 private:
 	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
 	std::unique_ptr<AI::SteeringModule> mSteeringModule;
@@ -85,16 +89,19 @@ private:
 	TileMap* mTileMap;
 
 	X::Math::Vector2 mGathererHome = X::RandomVector2({ 1400.0f, 650.0f }, { 1650.0f, 875.0f }); //actual screen dimensions
-	X::Math::Vector2 gatherSpot = { 27.0f, 15.0f }; //grid dimensions
+	X::Math::Vector2 gatherSpot = X::RandomVector2({ 700.0f, 500.0f }, { 1000.0f, 650.0f });
 
 	float gatherViewRange = 250;
 	float gatherViewAngle = 180;
 	float hunterViewRange = 150;
 	float hunterViewAngle = 50;
 
-	int mHealth = 100;
+	int mHealth = 35;
+	float mGathererEnergyMax = 30.0f;
+	float mGathererEnergy = mGathererEnergyMax;
 
 	bool mHasResource = false;
 	bool mDepositedResource = false;
+
 	bool showDebug = false;
 };

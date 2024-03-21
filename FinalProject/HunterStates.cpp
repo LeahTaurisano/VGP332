@@ -11,9 +11,13 @@ void HunterStayHomeAndRestState::Enter(Hunter& agent)
 
 void HunterStayHomeAndRestState::Update(Hunter& agent, float deltaTime)
 {
-	if (!agent.GetHasGatherer())
+	if (agent.GetEnergy() > agent.GetEnergyMax())
 	{
 		agent.GoToHunt();
+	}
+	else
+	{
+		agent.SetEnergy(agent.GetEnergy() + deltaTime * 1.0f);
 	}
 }
 
@@ -36,10 +40,15 @@ void GoToHuntingSpotState::Enter(Hunter& agent)
 void GoToHuntingSpotState::Update(Hunter& agent, float deltaTime)
 {
 	X::Math::Vector2 agentPos = agent.GetTileMap()->GetTilePosition(agent.position);
-	X::Math::Vector2 gatherPos = agent.GetHuntingSpot();
+	X::Math::Vector2 gatherPos = agent.GetTileMap()->GetTilePosition(agent.GetHuntingSpot());
 	if (X::Math::DistanceSqr(agentPos, gatherPos) < 5.0f)
 	{
 		agent.Hunt();
+	}
+	agent.SetEnergy(agent.GetEnergy() - deltaTime);
+	if (agent.GetEnergy() < 0.0f)
+	{
+		agent.GoHome();
 	}
 }
 
@@ -61,6 +70,11 @@ void HuntGatherersState::Enter(Hunter& agent)
 void HuntGatherersState::Update(Hunter& agent, float deltaTime)
 {
 	if (agent.GetHasGatherer())
+	{
+		agent.GoHome();
+	}
+	agent.SetEnergy(agent.GetEnergy() - deltaTime);
+	if (agent.GetEnergy() < 0.0f)
 	{
 		agent.GoHome();
 	}
@@ -86,6 +100,7 @@ void HunterGoHomeState::Update(Hunter& agent, float deltaTime)
 	{
 		agent.StayHome();
 	}
+	agent.SetEnergy(agent.GetEnergy() - deltaTime);
 }
 
 void HunterGoHomeState::Exit(Hunter& agent)

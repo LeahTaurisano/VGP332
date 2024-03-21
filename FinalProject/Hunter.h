@@ -62,6 +62,10 @@ public:
 	void SetDepositedGatherer(bool deposited) { mDepositedGatherer = deposited; }
 	bool GetDepositedGatherer() { return mDepositedGatherer; }
 
+	float GetEnergyMax() const { return mHunterEnergyMax; }
+	float GetEnergy() const { return mHunterEnergy; }
+	void SetEnergy(float energy) { mHunterEnergy = energy; }
+
 private:
 	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
 	std::unique_ptr<AI::SteeringModule> mSteeringModule;
@@ -81,10 +85,13 @@ private:
 	TileMap* mTileMap;
 
 	X::Math::Vector2 mHunterHome = X::RandomVector2({ 100.0f, 100.0f }, { 300.0f, 300.0f }); //actual screen dimensions
-	X::Math::Vector2 huntingSpot = { 27.0f, 15.0f }; //grid dimensions
+	X::Math::Vector2 huntingSpot = X::RandomVector2({ 700.0f, 500.0f }, { 1000.0f, 650.0f });
 
-	float huntViewRange = 180;
-	float huntViewAngle = 70;
+	float huntViewRange = 200;
+	float huntViewAngle = 180;
+
+	float mHunterEnergyMax = 30.0f;
+	float mHunterEnergy = mHunterEnergyMax;
 
 	bool mHasGatherer = false;
 	bool mDepositedGatherer = false;

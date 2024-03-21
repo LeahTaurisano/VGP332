@@ -76,7 +76,7 @@ void Gatherer::Load()
 	mDecisionModule = std::make_unique<AI::DecisionModule<Gatherer>>(*this);
 	auto goToResourceSpotStrategy = mDecisionModule->AddStrategy<GathererGoToResourceSpotStrategy>();
 	goToResourceSpotStrategy->SetPerception(mPerceptionModule.get());
-	goToResourceSpotStrategy->SetDestination(gatherSpot);
+	goToResourceSpotStrategy->SetDestination(mTileMap->GetTilePosition(gatherSpot));
 	goToResourceSpotStrategy->SetTileMap(mTileMap);
 	auto goHomeStrategy = mDecisionModule->AddStrategy<GathererGoHomeStrategy>();
 	goHomeStrategy->SetPerception(mPerceptionModule.get());
