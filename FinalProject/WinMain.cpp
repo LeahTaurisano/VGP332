@@ -123,8 +123,13 @@ bool GameLoop(float deltaTime)
 			{
 				agent->ShowDebug(showDebug);
 				agent->SetShowDebug(showDebug);
-				tileMap.SetShowDebug(showDebug);
 			}
+			for (auto& agent : hunterAgents)
+			{
+				agent->ShowDebug(showDebug);
+				agent->SetShowDebug(showDebug);
+			}
+			tileMap.SetShowDebug(showDebug);
 		}
 	}
 	ImGui::End();

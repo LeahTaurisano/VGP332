@@ -1,13 +1,11 @@
 #include "Hunter.h"
 
 #include "TypeIds.h"
-#include "VisualSensor.h"
-//#include "GathererStrategy.h"
-//#include "GathererForageStrategy.h"
-//#include "GathererGoToResourceSpotStrategy.h"
-//#include "GathererGoToResourceStrategy.h"
-//#include "GathererGoHomeStrategy.h"
-//#include "GathererHarvestStrategy.h"
+#include "VisualSensorHunter.h"
+#include "HunterGoToHuntingSpotStrategy.h"
+#include "HunterGoToGathererStrategy.h"
+#include "HunterGoHomeStrategy.h"
+#include "HunterHarvestStrategy.h"
 #include "HunterStates.h"
 
 extern float wanderJitter;
@@ -62,7 +60,7 @@ void Hunter::Load()
 {
 	mPerceptionModule = std::make_unique<AI::PerceptionModule>(*this, ComputeImportance);
 	mPerceptionModule->SetMemorySpan(3.0f);
-	mVisualSensor = mPerceptionModule->AddSensor<VisualSensor>();
+	mVisualSensor = mPerceptionModule->AddSensor<VisualSensorHunter>();
 	mVisualSensor->targetType = AgentType::Gatherer;
 
 	mSteeringModule = std::make_unique<AI::SteeringModule>(*this);
@@ -71,18 +69,18 @@ void Hunter::Load()
 	mWanderBehavior = mSteeringModule->AddBehavior<AI::WanderBehavior>();
 
 	mDecisionModule = std::make_unique<AI::DecisionModule<Hunter>>(*this);
-	/*auto goToResourceSpotStrategy = mDecisionModule->AddStrategy<GathererGoToResourceSpotStrategy>();
-	goToResourceSpotStrategy->SetPerception(mPerceptionModule.get());
-	goToResourceSpotStrategy->SetDestination(gatherSpot);
-	goToResourceSpotStrategy->SetTileMap(mTileMap);
-	auto goHomeStrategy = mDecisionModule->AddStrategy<GathererGoHomeStrategy>();
+	auto goToHuntingSpotStrategy = mDecisionModule->AddStrategy<HunterGoToHuntingSpotStrategy>();
+	goToHuntingSpotStrategy->SetPerception(mPerceptionModule.get());
+	goToHuntingSpotStrategy->SetDestination(huntingSpot);
+	goToHuntingSpotStrategy->SetTileMap(mTileMap);
+	auto goHomeStrategy = mDecisionModule->AddStrategy<HunterGoHomeStrategy>();
 	goHomeStrategy->SetPerception(mPerceptionModule.get());
-	goHomeStrategy->SetDestination(mTileMap->GetTilePosition(mGathererHome));
+	goHomeStrategy->SetDestination(mTileMap->GetTilePosition(mHunterHome));
 	goHomeStrategy->SetTileMap(mTileMap);
-	mDecisionModule->AddStrategy<GathererHarvestStrategy>();
-	auto goToResourceStrategy = mDecisionModule->AddStrategy<GathererGoToResourceStrategy>();
+	mDecisionModule->AddStrategy<HunterHarvestStrategy>();
+	auto goToResourceStrategy = mDecisionModule->AddStrategy<HunterGoToGathererStrategy>();
 	goToResourceStrategy->SetPerception(mPerceptionModule.get());
-	goToResourceStrategy->SetTileMap(mTileMap);*/
+	goToResourceStrategy->SetTileMap(mTileMap);
 
 	for (int i = 0; i < mTextureIds.size(); ++i)
 	{

@@ -140,15 +140,24 @@
     <ClCompile Include="GathererStates.cpp" />
     <ClCompile Include="GathererStrategy.cpp" />
     <ClCompile Include="GoalArriveAtPosition.cpp" />
+    <ClCompile Include="GoalArriveAtPositionHunter.cpp" />
+    <ClCompile Include="GoalHarvestGatherer.cpp" />
     <ClCompile Include="GoalHarvestResource.cpp" />
     <ClCompile Include="GoalMoveToPosition.cpp" />
+    <ClCompile Include="GoalMoveToPositionHunter.cpp" />
     <ClCompile Include="GoalSeekToPosition.cpp" />
+    <ClCompile Include="GoalSeekToPositionHunter.cpp" />
     <ClCompile Include="GoalWander.cpp" />
     <ClCompile Include="Hunter.cpp" />
+    <ClCompile Include="HunterGoHomeStrategy.cpp" />
+    <ClCompile Include="HunterGoToGathererStrategy.cpp" />
+    <ClCompile Include="HunterGoToHuntingSpotStrategy.cpp" />
+    <ClCompile Include="HunterHarvestStrategy.cpp" />
     <ClCompile Include="HunterStates.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="VisualSensor.cpp" />
+    <ClCompile Include="VisualSensorHunter.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,16 +174,25 @@
     <ClInclude Include="GathererStates.h" />
     <ClInclude Include="GathererStrategy.h" />
     <ClInclude Include="GoalArriveAtPosition.h" />
+    <ClInclude Include="GoalArriveAtPositionHunter.h" />
+    <ClInclude Include="GoalHarvestGatherer.h" />
     <ClInclude Include="GoalHarvestResource.h" />
     <ClInclude Include="GoalMoveToPosition.h" />
+    <ClInclude Include="GoalMoveToPositionHunter.h" />
     <ClInclude Include="GoalSeekToPosition.h" />
+    <ClInclude Include="GoalSeekToPositionHunter.h" />
     <ClInclude Include="GoalWander.h" />
     <ClInclude Include="Hunter.h" />
+    <ClInclude Include="HunterGoHomeStrategy.h" />
+    <ClInclude Include="HunterGoToGathererStrategy.h" />
+    <ClInclude Include="HunterGoToHuntingSpotStrategy.h" />
+    <ClInclude Include="HunterHarvestStrategy.h" />
     <ClInclude Include="HunterStates.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TypeIds.h" />
     <ClInclude Include="VisualSensor.h" />
+    <ClInclude Include="VisualSensorHunter.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AI\AI.vcxproj">

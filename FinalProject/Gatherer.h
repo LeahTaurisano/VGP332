@@ -62,6 +62,9 @@ public:
 	void SetDepositedResource(bool deposited) { mDepositedResource = deposited; }
 	bool GetDepositedResource() { return mDepositedResource; }
 
+	int GetHealth() const { return mHealth; }
+	void SetHealth(int health) { mHealth = health; }
+
 private:
 	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
 	std::unique_ptr<AI::SteeringModule> mSteeringModule;
@@ -88,6 +91,8 @@ private:
 	float gatherViewAngle = 180;
 	float hunterViewRange = 150;
 	float hunterViewAngle = 50;
+
+	int mHealth = 100;
 
 	bool mHasResource = false;
 	bool mDepositedResource = false;

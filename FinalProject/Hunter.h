@@ -3,7 +3,7 @@
 #include <AI.h>
 #include "TileMap.h"
 
-class VisualSensor;
+class VisualSensorHunter;
 
 enum class HunterLocation
 {
@@ -71,7 +71,7 @@ private:
 	HunterState mCurrentState;
 	HunterLocation mLocation;
 
-	VisualSensor* mVisualSensor = nullptr;
+	VisualSensorHunter* mVisualSensor = nullptr;
 	AI::SeekBehavior* mSeekBehavior = nullptr;
 	AI::ArriveBehavior* mArriveBehavior = nullptr;
 	AI::WanderBehavior* mWanderBehavior = nullptr;

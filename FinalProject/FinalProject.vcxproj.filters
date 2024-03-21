@@ -9,13 +9,13 @@
       <Filter>Gatherers</Filter>
     </ClCompile>
     <ClCompile Include="GathererHarvestStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="GathererForageStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="GathererStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="VisualSensor.cpp">
       <Filter>Sensors</Filter>
@@ -24,37 +24,64 @@
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="GoalMoveToPosition.cpp">
-      <Filter>DecisionMaking\Goals\Composite</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Composite</Filter>
     </ClCompile>
     <ClCompile Include="GoalArriveAtPosition.cpp">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClCompile>
     <ClCompile Include="GoalHarvestResource.cpp">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClCompile>
     <ClCompile Include="GoalSeekToPosition.cpp">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClCompile>
     <ClCompile Include="GoalWander.cpp">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClCompile>
     <ClCompile Include="GathererStates.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="GathererGoHomeStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="GathererGoToResourceSpotStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="GathererGoToResourceStrategy.cpp">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="Hunter.cpp">
       <Filter>Hunters</Filter>
     </ClCompile>
     <ClCompile Include="HunterStates.cpp">
       <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="HunterGoToHuntingSpotStrategy.cpp">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalMoveToPositionHunter.cpp">
+      <Filter>Hunters\DecisionMaking\Goals\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalHarvestGatherer.cpp">
+      <Filter>Hunters\DecisionMaking\Goals\Atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalSeekToPositionHunter.cpp">
+      <Filter>Hunters\DecisionMaking\Goals\Atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalArriveAtPositionHunter.cpp">
+      <Filter>Hunters\DecisionMaking\Goals\Atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="HunterGoHomeStrategy.cpp">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="HunterGoToGathererStrategy.cpp">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="HunterHarvestStrategy.cpp">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualSensorHunter.cpp">
+      <Filter>Sensors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +99,6 @@
     <Filter Include="Gatherers">
       <UniqueIdentifier>{aef90355-b8b4-48c6-a4a6-44f5b0eed192}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Gatherers\Strategies">
-      <UniqueIdentifier>{5577b4cf-3cf3-429f-aa03-91ab462ca179}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sensors">
       <UniqueIdentifier>{d7319102-6d2c-4960-b1d8-ea95f7fe901f}</UniqueIdentifier>
     </Filter>
@@ -87,20 +111,35 @@
     <Filter Include="Hunters">
       <UniqueIdentifier>{7bb38869-7ea5-47b4-b21f-43b79172bc79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hunters\Strategies">
-      <UniqueIdentifier>{70e44c3b-1e16-47f4-9807-02a1770d757f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DecisionMaking">
+    <Filter Include="Gatherers\DecisionMaking">
       <UniqueIdentifier>{3e0ceca5-da8f-4626-9fb8-04b485b64f20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DecisionMaking\Goals">
+    <Filter Include="Gatherers\DecisionMaking\Goals">
       <UniqueIdentifier>{7f7b2630-a695-4499-830b-895deb1c5657}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DecisionMaking\Goals\Composite">
+    <Filter Include="Gatherers\DecisionMaking\Goals\Composite">
       <UniqueIdentifier>{920c40d8-6be4-4176-9e2e-5c54286fb3ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DecisionMaking\Goals\Atomic">
+    <Filter Include="Gatherers\DecisionMaking\Goals\Atomic">
       <UniqueIdentifier>{4ced00c4-f810-47e8-a163-38d552157297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gatherers\DecisionMaking\Strategies">
+      <UniqueIdentifier>{5577b4cf-3cf3-429f-aa03-91ab462ca179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\DecisionMaking">
+      <UniqueIdentifier>{1ff44b99-513e-4fbf-b849-cf26e07628b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\DecisionMaking\Goals">
+      <UniqueIdentifier>{5a687bee-d065-447b-bca7-d8adde96e388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\DecisionMaking\Goals\Atomic">
+      <UniqueIdentifier>{17f29cec-0b69-4906-847c-90fa4e0c0f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\DecisionMaking\Goals\Composite">
+      <UniqueIdentifier>{0d6727d5-4f3d-4ebc-9f1e-b2775de262be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hunters\DecisionMaking\Strategies">
+      <UniqueIdentifier>{70e44c3b-1e16-47f4-9807-02a1770d757f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,13 +150,13 @@
       <Filter>Gatherers</Filter>
     </ClInclude>
     <ClInclude Include="GathererHarvestStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="GathererForageStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="GathererStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="TypeIds.h" />
     <ClInclude Include="VisualSensor.h">
@@ -127,37 +166,64 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="GoalMoveToPosition.h">
-      <Filter>DecisionMaking\Goals\Composite</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Composite</Filter>
     </ClInclude>
     <ClInclude Include="GoalArriveAtPosition.h">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClInclude>
     <ClInclude Include="GoalHarvestResource.h">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClInclude>
     <ClInclude Include="GoalSeekToPosition.h">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClInclude>
     <ClInclude Include="GoalWander.h">
-      <Filter>DecisionMaking\Goals\Atomic</Filter>
+      <Filter>Gatherers\DecisionMaking\Goals\Atomic</Filter>
     </ClInclude>
     <ClInclude Include="GathererStates.h">
       <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="GathererGoHomeStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="GathererGoToResourceSpotStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="GathererGoToResourceStrategy.h">
-      <Filter>Gatherers\Strategies</Filter>
+      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="Hunter.h">
       <Filter>Hunters</Filter>
     </ClInclude>
     <ClInclude Include="HunterStates.h">
       <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="HunterGoToHuntingSpotStrategy.h">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalMoveToPositionHunter.h">
+      <Filter>Hunters\DecisionMaking\Goals\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalArriveAtPositionHunter.h">
+      <Filter>Hunters\DecisionMaking\Goals\Atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalHarvestGatherer.h">
+      <Filter>Hunters\DecisionMaking\Goals\Atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalSeekToPositionHunter.h">
+      <Filter>Hunters\DecisionMaking\Goals\Atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="HunterGoHomeStrategy.h">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="HunterGoToGathererStrategy.h">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="HunterHarvestStrategy.h">
+      <Filter>Hunters\DecisionMaking\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualSensorHunter.h">
+      <Filter>Sensors</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
