@@ -8,10 +8,6 @@
 #include "HunterHarvestStrategy.h"
 #include "HunterStates.h"
 
-extern float wanderJitter;
-extern float wanderRadius;
-extern float wanderDistance;
-
 namespace
 {
 	float ComputeImportance(const AI::Agent& agent, const AI::MemoryRecord& record)
@@ -102,8 +98,6 @@ void Hunter::Update(float deltaTime)
 	mPerceptionModule->Update(deltaTime);
 	mDecisionModule->Update();
 	mStateMachine.Update(deltaTime);
-
-	mWanderBehavior->Setup(wanderRadius, wanderDistance, wanderJitter);
 
 	const X::Math::Vector2 force = mSteeringModule->Calculate();
 	const X::Math::Vector2 acceleration = force / mass;

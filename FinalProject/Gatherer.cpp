@@ -2,17 +2,11 @@
 
 #include "TypeIds.h"
 #include "VisualSensor.h"
-#include "GathererStrategy.h"
-#include "GathererForageStrategy.h"
 #include "GathererGoToResourceSpotStrategy.h"
 #include "GathererGoToResourceStrategy.h"
 #include "GathererGoHomeStrategy.h"
 #include "GathererHarvestStrategy.h"
 #include "GathererStates.h"
-
-extern float wanderJitter;
-extern float wanderRadius;
-extern float wanderDistance;
 
 namespace
 {
@@ -110,8 +104,6 @@ void Gatherer::Update(float deltaTime)
 	mPerceptionModule->Update(deltaTime);
 	mDecisionModule->Update();
 	mStateMachine.Update(deltaTime);
-
-	mWanderBehavior->Setup(wanderRadius, wanderDistance, wanderJitter);
 
 	const X::Math::Vector2 force = mSteeringModule->Calculate();
 	const X::Math::Vector2 acceleration = force / mass;

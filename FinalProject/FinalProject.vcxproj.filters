@@ -8,12 +8,6 @@
     <ClCompile Include="GathererHarvestStrategy.cpp">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClCompile>
-    <ClCompile Include="GathererForageStrategy.cpp">
-      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClCompile>
-    <ClCompile Include="GathererStrategy.cpp">
-      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
@@ -159,12 +153,6 @@
       <Filter>Pathfinding</Filter>
     </ClInclude>
     <ClInclude Include="GathererHarvestStrategy.h">
-      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClInclude>
-    <ClInclude Include="GathererForageStrategy.h">
-      <Filter>Gatherers\DecisionMaking\Strategies</Filter>
-    </ClInclude>
-    <ClInclude Include="GathererStrategy.h">
       <Filter>Gatherers\DecisionMaking\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="TypeIds.h" />

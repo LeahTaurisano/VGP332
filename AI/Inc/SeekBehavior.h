@@ -30,6 +30,6 @@ namespace AI
 
 		X::Math::Vector2 Calculate(Agent& agent) override;
 
-		Deceleration deceleration = Deceleration::Normal;
+		Deceleration deceleration = Deceleration::Fast;
 	};
 }

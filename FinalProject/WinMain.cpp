@@ -16,9 +16,6 @@ std::vector<std::unique_ptr<Resource>> resources;
 float camSpeed = 90.0f;
 
 bool showDebug = false;
-float wanderJitter = 5.0f;
-float wanderRadius = 20.0f;
-float wanderDistance = 50.0f;
 float radius = 50.0f;
 
 int gathererFood = 0;
